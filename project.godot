@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Proyecto3PDS"
-run/main_scene="res://Node2D.tscn"
+run/main_scene="res://Menus/MainMenu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+FireBase="*res://Static/FireBase.gd"
 
 [display]
 

@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Menus/LogInMenu.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 90
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+font_data = ExtResource( 2 )
+
+[node name="LogInMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 576.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 576.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 106.0
+margin_right = 1024.0
+margin_bottom = 222.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Log In"
+align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 226.0
+margin_right = 1024.0
+margin_bottom = 452.0
+
+[node name="UsernameContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
+margin_right = 1024.0
+margin_bottom = 75.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
+margin_left = 137.0
+margin_right = 482.0
+margin_bottom = 75.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Username:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
+margin_left = 486.0
+margin_right = 886.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 400, 0 )
+
+[node name="PasswordContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
+margin_top = 79.0
+margin_right = 1024.0
+margin_bottom = 154.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
+margin_left = 144.0
+margin_right = 475.0
+margin_bottom = 75.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Password:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
+margin_left = 479.0
+margin_right = 879.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 400, 0 )
+expand_to_text_length = true
+
+[node name="LogInButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
+margin_left = 412.0
+margin_top = 158.0
+margin_right = 612.0
+margin_bottom = 226.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "Log In"
+
+[node name="notification" type="Label" parent="VBoxContainer"]
+margin_top = 456.0
+margin_right = 1024.0
+margin_bottom = 470.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/LogInButton" to="." method="_on_LogInButton_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
