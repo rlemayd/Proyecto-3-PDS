@@ -14,9 +14,6 @@ func _on_Button_pressed():
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body := JSON.parse(body.get_string_from_ascii())
-	print(response_body)
-	print(response_code)
-	print(result)
 	if response_code != 200:
 		notification.text = "User not found"
 	else:
