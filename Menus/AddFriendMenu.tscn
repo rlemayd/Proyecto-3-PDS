@@ -1,0 +1,111 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/AddFriendMenu.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 31
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 26
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 27
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="AddFriendMenu" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_top = 1.12247
+margin_right = 1022.0
+margin_bottom = 575.122
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+margin_right = 1022.0
+margin_bottom = 576.0
+custom_constants/separation = 100
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="UI/VBoxContainer"]
+margin_right = 1022.0
+margin_bottom = 103.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
+text = "ColorMe"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 203.0
+margin_right = 1022.0
+margin_bottom = 246.0
+custom_constants/separation = 20
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+margin_left = 352.0
+margin_top = 2.0
+margin_right = 543.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Mail amigo:"
+
+[node name="LineEdit" type="LineEdit" parent="UI/VBoxContainer/HBoxContainer"]
+margin_left = 563.0
+margin_right = 669.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 3 )
+
+[node name="Button" type="Button" parent="UI/VBoxContainer"]
+margin_left = 446.0
+margin_top = 346.0
+margin_right = 575.0
+margin_bottom = 386.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "Agregar"
+
+[node name="notification" type="Label" parent="UI"]
+margin_top = 486.0
+margin_right = 1022.0
+margin_bottom = 500.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="pressed" from="UI/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

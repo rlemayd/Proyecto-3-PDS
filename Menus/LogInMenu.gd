@@ -12,7 +12,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	if response_code != 200:
 		notification.text = response_body.result.error.message.capitalize()
 	else:
-		notification.text = "Sign in sucessful!"
+		get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
+		
 
 
 func _on_LogInButton_pressed():
