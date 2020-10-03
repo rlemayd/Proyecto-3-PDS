@@ -38,24 +38,26 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 576.0
+custom_constants/separation = 34
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 106.0
+margin_top = 58.0
 margin_right = 1024.0
-margin_bottom = 222.0
+margin_bottom = 174.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Log In"
 align = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 226.0
+margin_top = 208.0
 margin_right = 1024.0
-margin_bottom = 452.0
+margin_bottom = 470.0
+custom_constants/separation = 22
 
 [node name="UsernameContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 margin_right = 1024.0
@@ -77,40 +79,41 @@ margin_bottom = 75.0
 rect_min_size = Vector2( 400, 0 )
 
 [node name="PasswordContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-margin_top = 79.0
+margin_top = 97.0
 margin_right = 1024.0
-margin_bottom = 154.0
+margin_bottom = 172.0
+custom_constants/separation = 17
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
-margin_left = 144.0
-margin_right = 475.0
+margin_left = 138.0
+margin_right = 469.0
 margin_bottom = 75.0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Password:"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
-margin_left = 479.0
-margin_right = 879.0
+margin_left = 486.0
+margin_right = 886.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 400, 0 )
 expand_to_text_length = true
 
 [node name="LogInButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
 margin_left = 412.0
-margin_top = 158.0
+margin_top = 194.0
 margin_right = 612.0
-margin_bottom = 226.0
+margin_bottom = 262.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "Log In"
 
 [node name="notification" type="Label" parent="VBoxContainer"]
-margin_top = 456.0
+margin_top = 504.0
 margin_right = 1024.0
-margin_bottom = 470.0
+margin_bottom = 518.0
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer2/LogInButton" to="." method="_on_LogInButton_pressed"]

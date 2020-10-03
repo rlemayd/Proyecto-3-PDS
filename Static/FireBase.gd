@@ -46,10 +46,12 @@ func login(email: String, password: String, http: HTTPRequest) -> void:
 	http.request(LOGIN_URL, [], false, HTTPClient.METHOD_POST, to_json(body))
 	var result := yield(http, "request_completed") as Array
 	if result[1] == 200:
+		profile.email = email
 		user_info = _get_user_info(result)
 
 
 func save_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:
+	print("HOLAAAA")
 	var document := { "fields": fields }
 	var body := to_json(document)
 	var url := FIRESTORE_URL + path

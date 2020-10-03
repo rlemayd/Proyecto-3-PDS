@@ -47,4 +47,15 @@ text = "Add Friend"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Notifications" type="Button" parent="UI"]
+margin_left = 768.0
+margin_top = 24.0
+margin_right = 849.0
+margin_bottom = 88.0
+text = "Notifications"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="UI/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/Notifications" to="." method="_on_Notifications_pressed"]
