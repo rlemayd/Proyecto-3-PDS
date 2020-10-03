@@ -51,14 +51,13 @@ func login(email: String, password: String, http: HTTPRequest) -> void:
 
 
 func save_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:
-	print("HOLAAAA")
 	var document := { "fields": fields }
 	var body := to_json(document)
 	var url := FIRESTORE_URL + path
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST, body)
 
 
-func get_document(path: String, http: HTTPRequest) -> void:
+func get_document(path: String, http: HTTPRequest):
 	var url := FIRESTORE_URL + path
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_GET)
 
