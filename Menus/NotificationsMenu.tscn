@@ -51,17 +51,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 133.0
-margin_right = 1022.0
-margin_bottom = 576.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Panel" parent="UI/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+[node name="ScrollBox" parent="UI/VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_top = 133.0
+margin_right = 1022.0
+margin_bottom = 133.0
+size_flags_horizontal = 5
+
+[node name="ScrollContainer" parent="UI/VBoxContainer/ScrollBox" index="0"]
+size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="VBoxContainer" parent="UI/VBoxContainer/ScrollBox/ScrollContainer" index="0"]
+size_flags_horizontal = 5
 
 [node name="notification" type="Label" parent="UI"]
 margin_top = 486.0
@@ -75,3 +78,5 @@ __meta__ = {
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+
+[editable path="UI/VBoxContainer/ScrollBox"]

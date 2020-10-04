@@ -16,7 +16,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		
 
 
-func _on_LogInButton_pressed():
+func _on_LoginButton_pressed():
 	if username.text.empty() or password.text.empty():
 		notification.text = "Please, enter your username and password"
 		return

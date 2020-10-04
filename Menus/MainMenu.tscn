@@ -16,10 +16,8 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_left = -1.91846
-margin_top = -10.3026
-margin_right = 1020.08
-margin_bottom = 563.697
+margin_right = 1022.0
+margin_bottom = 574.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -30,10 +28,10 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="UI"]
-margin_left = 359.859
-margin_top = 47.9405
-margin_right = 678.859
-margin_bottom = 150.941
+margin_left = 350.324
+margin_top = 86.0812
+margin_right = 669.324
+margin_bottom = 189.082
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
 text = "ColorMe"

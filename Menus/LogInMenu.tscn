@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/LogInMenu.gd" type="Script" id=3]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 90
@@ -13,11 +14,15 @@ size = 60
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 60
+size = 54
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 50
+size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 54
 font_data = ExtResource( 2 )
 
 [node name="LogInMenu" type="Control"]
@@ -45,29 +50,30 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 58.0
+margin_top = 40.0
 margin_right = 1024.0
-margin_bottom = 174.0
+margin_bottom = 156.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Log In"
 align = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 208.0
+margin_top = 190.0
 margin_right = 1024.0
-margin_bottom = 470.0
+margin_bottom = 488.0
 custom_constants/separation = 22
 
 [node name="UsernameContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 margin_right = 1024.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
 margin_left = 137.0
+margin_top = 1.0
 margin_right = 482.0
-margin_bottom = 75.0
+margin_bottom = 76.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Username:"
@@ -75,46 +81,54 @@ text = "Username:"
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
 margin_left = 486.0
 margin_right = 886.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 3 )
 
 [node name="PasswordContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-margin_top = 97.0
+margin_top = 99.0
 margin_right = 1024.0
-margin_bottom = 172.0
+margin_bottom = 176.0
 custom_constants/separation = 17
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
 margin_left = 138.0
+margin_top = 1.0
 margin_right = 469.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 3 )
+margin_bottom = 76.0
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Password:"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
 margin_left = 486.0
 margin_right = 886.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 5 )
 expand_to_text_length = true
 
-[node name="LogInButton" type="Button" parent="VBoxContainer/VBoxContainer2"]
-margin_left = 412.0
-margin_top = 194.0
-margin_right = 612.0
-margin_bottom = 262.0
-rect_min_size = Vector2( 200, 0 )
+[node name="LoginButton" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 362.0
+margin_top = 198.0
+margin_right = 662.0
+margin_bottom = 298.0
+rect_min_size = Vector2( 300, 100 )
 size_flags_horizontal = 4
-custom_fonts/font = SubResource( 4 )
-text = "Log In"
+
+[node name="ButtonText" parent="VBoxContainer/VBoxContainer2/LoginButton" index="0"]
+text = "Login"
 
 [node name="notification" type="Label" parent="VBoxContainer"]
-margin_top = 504.0
+margin_top = 522.0
 margin_right = 1024.0
-margin_bottom = 518.0
+margin_bottom = 536.0
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
-[connection signal="pressed" from="VBoxContainer/VBoxContainer2/LogInButton" to="." method="_on_LogInButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer2/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+
+[editable path="VBoxContainer/VBoxContainer2/LoginButton"]

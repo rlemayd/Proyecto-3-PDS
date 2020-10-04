@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/LoggedMainMenu.gd" type="Script" id=2]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonBlue.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 5 )
 
 [node name="LoggedMenu" type="Control"]
 script = ExtResource( 2 )
@@ -38,24 +47,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="UI"]
-margin_left = 888.0
-margin_top = 24.0
-margin_right = 969.0
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+margin_left = 594.0
+margin_top = 18.0
+margin_right = 1002.0
 margin_bottom = 88.0
-text = "Add Friend"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Notifications" type="Button" parent="UI"]
-margin_left = 768.0
-margin_top = 24.0
-margin_right = 849.0
-margin_bottom = 88.0
+[node name="NotificationsButton" parent="UI/HBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -1.0
+margin_right = 199.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 200, 70 )
+size_flags_horizontal = 4
+
+[node name="ButtonText" parent="UI/HBoxContainer/NotificationsButton" index="0"]
+margin_left = 9.0
+margin_top = 8.0
+margin_right = 193.0
+margin_bottom = 64.0
+size_flags_horizontal = 0
+custom_fonts/font = SubResource( 2 )
 text = "Notifications"
+
+[node name="AddFriendsButton" parent="UI/HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 203.0
+margin_right = 403.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 200, 70 )
+size_flags_horizontal = 4
+
+[node name="ButtonText" parent="UI/HBoxContainer/AddFriendsButton" index="0"]
+margin_left = 11.0
+margin_top = 6.0
+margin_right = 187.0
+margin_bottom = 62.0
+size_flags_horizontal = 0
+custom_fonts/font = SubResource( 3 )
+text = "ADD FRIENDS"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+margin_left = 56.0
+margin_top = 160.0
+margin_right = 456.0
+margin_bottom = 496.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="UI/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/Notifications" to="." method="_on_Notifications_pressed"]
+
+[node name="FriendsButton" parent="UI/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = -1.0
+margin_right = 400.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 200, 100 )
+size_flags_vertical = 4
+[connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
+
+[editable path="UI/HBoxContainer/NotificationsButton"]
+
+[editable path="UI/HBoxContainer/AddFriendsButton"]
