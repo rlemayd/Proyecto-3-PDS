@@ -59,8 +59,7 @@ __meta__ = {
 [node name="NotificationsButton" parent="UI/HBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -1.0
-margin_right = 199.0
+margin_right = 200.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 200, 70 )
 size_flags_horizontal = 4
@@ -77,8 +76,8 @@ text = "Notifications"
 [node name="AddFriendsButton" parent="UI/HBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 203.0
-margin_right = 403.0
+margin_left = 204.0
+margin_right = 404.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 200, 70 )
 size_flags_horizontal = 4
@@ -95,8 +94,8 @@ text = "ADD FRIENDS"
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 margin_left = 56.0
 margin_top = 160.0
-margin_right = 456.0
-margin_bottom = 496.0
+margin_right = 360.0
+margin_bottom = 260.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,11 +103,13 @@ __meta__ = {
 [node name="FriendsButton" parent="UI/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = -1.0
-margin_right = 400.0
-margin_bottom = 99.0
+margin_right = 304.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 200, 100 )
 size_flags_vertical = 4
+
+[node name="ButtonText" parent="UI/VBoxContainer/FriendsButton" index="0"]
+text = "Friends"
 [connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
@@ -116,3 +117,5 @@ size_flags_vertical = 4
 [editable path="UI/HBoxContainer/NotificationsButton"]
 
 [editable path="UI/HBoxContainer/AddFriendsButton"]
+
+[editable path="UI/VBoxContainer/FriendsButton"]
