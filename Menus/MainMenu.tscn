@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/MainMenu.gd" type="Script" id=2]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonBlue.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -14,9 +16,10 @@ __meta__ = {
 }
 
 [node name="Background" type="ColorRect" parent="."]
-margin_top = 1.12247
-margin_right = 1022.0
-margin_bottom = 575.122
+margin_left = -1.91846
+margin_top = -10.3026
+margin_right = 1020.08
+margin_bottom = 563.697
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,26 +41,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LogInButton" type="Button" parent="UI"]
-margin_left = 192.0
-margin_top = 360.0
-margin_right = 421.0
-margin_bottom = 437.0
-rect_pivot_offset = Vector2( 194.047, 22.6222 )
-text = "Log In"
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+margin_left = 1.0
+margin_top = 271.0
+margin_right = 1025.0
+margin_bottom = 371.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RegisterButton" type="Button" parent="UI"]
-margin_left = 624.0
-margin_top = 360.0
-margin_right = 853.0
-margin_bottom = 437.0
-rect_pivot_offset = Vector2( 194.047, 22.6222 )
+[node name="LoginButton" parent="UI/HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 210.0
+margin_right = 510.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 300, 100 )
+
+[node name="ButtonText" parent="UI/HBoxContainer/LoginButton" index="0"]
+text = "Login"
+
+[node name="RegisterButton" parent="UI/HBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 514.0
+margin_right = 814.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 300, 100 )
+
+[node name="ButtonText" parent="UI/HBoxContainer/RegisterButton" index="0"]
+margin_left = 74.5837
+margin_top = 27.8811
+margin_right = 229.584
+margin_bottom = 65.8811
 text = "Register"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="UI/LogInButton" to="." method="_on_LogInButton_pressed"]
-[connection signal="pressed" from="UI/RegisterButton" to="." method="_on_RegisterButton_pressed"]
+
+[node name="Button" parent="UI" instance=ExtResource( 4 )]
+[connection signal="pressed" from="UI/HBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="pressed" from="UI/HBoxContainer/RegisterButton" to="." method="_on_RegisterButton_pressed"]
+
+[editable path="UI/HBoxContainer/LoginButton"]
+
+[editable path="UI/HBoxContainer/RegisterButton"]
