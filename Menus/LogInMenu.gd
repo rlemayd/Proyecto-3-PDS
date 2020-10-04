@@ -11,6 +11,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body := JSON.parse(body.get_string_from_ascii())
 	if response_code != 200:
 		notification.text = response_body.result.error.message.capitalize()
+		print(response_body.result.error.message.capitalize())
 	else:
 		get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 		

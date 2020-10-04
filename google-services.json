@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186533502478",
+    "firebase_url": "https://proyecto3-pds.firebaseio.com",
+    "project_id": "proyecto3-pds",
+    "storage_bucket": "proyecto3-pds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186533502478:android:4d6545f6cd287e5f21665f",
+        "android_client_info": {
+          "package_name": "org.godotengine.PDS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186533502478-o8otgpbtta8u0567j98ko8t2qmpvctfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.godotengine.PDS",
+            "certificate_hash": "617297a4d671a6ca12fe0434f794309c3fcb553c"
+          }
+        },
+        {
+          "client_id": "186533502478-p3avahclb5ac963cr047m10k2ma9b8gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpOev_MRnacUIsZG4Rg5ka05zvg2HnFZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186533502478-p3avahclb5ac963cr047m10k2ma9b8gj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,10 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 54
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 10
 font_data = ExtResource( 2 )
 
 [node name="LogInMenu" type="Control"]
@@ -125,7 +129,9 @@ text = "Login"
 [node name="notification" type="Label" parent="VBoxContainer"]
 margin_top = 522.0
 margin_right = 1024.0
-margin_bottom = 536.0
+margin_bottom = 535.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer2/LoginButton" to="." method="_on_LoginButton_pressed"]

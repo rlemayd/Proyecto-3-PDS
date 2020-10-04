@@ -76,8 +76,6 @@ margin_top = 27.8811
 margin_right = 229.584
 margin_bottom = 65.8811
 text = "Register"
-
-[node name="Button" parent="UI" instance=ExtResource( 4 )]
 [connection signal="pressed" from="UI/HBoxContainer/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/RegisterButton" to="." method="_on_RegisterButton_pressed"]
 
