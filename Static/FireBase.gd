@@ -7,6 +7,8 @@ const REGISTER_URL := "https://www.googleapis.com/identitytoolkit/v3/relyingpart
 const LOGIN_URL := "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=%s" % API_KEY
 const FIRESTORE_URL := "https://firestore.googleapis.com/v1/projects/%s/databases/(default)/documents/" % PROJECT_ID
 
+const OAUTH2_TOKEN = "231602869625-6pb750uqtceec4ihr3cbbvnogpu62us5.apps.googleusercontent.com"
+
 var user_info := {}
 var profile := {"email": {}}
 
@@ -54,12 +56,18 @@ func save_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:
 	var document := { "fields": fields }
 	var body := to_json(document)
 	var url := FIRESTORE_URL + path
+	print(url)
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST, body)
 
 
 func get_document(path: String, http: HTTPRequest):
 	var url := FIRESTORE_URL + path
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_GET)
+	
+func get_collections(path: String, http: HTTPRequest):
+	var url := FIRESTORE_URL + path +":listCollectionIds?key=%s"%API_KEY
+	print(url)
+	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST,to_json({}))
 
 
 func update_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:

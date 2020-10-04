@@ -7,4 +7,4 @@ func _on_Button_pressed():
 
 
 func _on_Notifications_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Menus/NotificationsMenu.tscn")
