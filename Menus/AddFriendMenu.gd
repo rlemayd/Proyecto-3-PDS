@@ -19,19 +19,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body := JSON.parse(body.get_string_from_ascii())
 	if request == "send_request":
 		if response_code != 200:
-			var prof := {
-				"email": {}
-			}
-			prof.email = {"stringValue": FireBase.profile.email}
 			request = "send_request"
 			FireBase.save_document("friendRequests?documentId=%s" % email.text,{}, http)
 		else:
-			var prof := {
-				"email": {}
-			}
-			prof.email = {"stringValue": FireBase.profile.email}
 			request = "save_document"
-			FireBase.save_document("friendRequests/%s/%s" % [email.text,FireBase.profile.email],{}, http)
+			FireBase.save_document("friendRequests/%s/%s?documentId=%s" % [email.text,FireBase.profile.email,FireBase.profile.email],{}, http)
 			notification.text = "Friend request sent!"
 	elif request == "get_user":
 		if response_code != 200:

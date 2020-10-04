@@ -64,10 +64,14 @@ func get_document(path: String, http: HTTPRequest):
 	var url := FIRESTORE_URL + path
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_GET)
 	
-func get_collections(path: String, http: HTTPRequest):
-	var url := FIRESTORE_URL + path +":listCollectionIds?key=%s"%API_KEY
-	print(url)
-	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST,to_json({}))
+func query(path: String, http: HTTPRequest):
+	var url := FIRESTORE_URL + path +":runQuery?key=%s"%API_KEY
+	
+	var q = {
+		"structuredQuery": {}
+	} 
+	
+	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST,to_json(q))
 
 
 func update_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:
