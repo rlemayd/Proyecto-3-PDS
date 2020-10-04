@@ -111,20 +111,10 @@ size_flags_vertical = 4
 [node name="ButtonText" parent="UI/VBoxContainer/FriendsButton" index="0"]
 text = "Friends"
 
-[node name="Button" parent="UI/VBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 104.0
-margin_right = 304.0
-margin_bottom = 204.0
-rect_min_size = Vector2( 200, 100 )
-size_flags_vertical = 4
-
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 [editable path="UI/HBoxContainer/NotificationsButton"]

@@ -14,9 +14,6 @@ func _on_FriendsButton_pressed():
 	get_tree().change_scene("res://Menus/FriendsMenu.tscn")
 
 
-func _on_Button_pressed():
-	FireBase.test("",http)
-
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	print(response_code)

@@ -6,15 +6,16 @@ onready var email = requestEmail.text
 
 var request = ""
 
-func _on_AceptarButton_pressed():
+func _on_AcceptButton_pressed():
 	request = "accept"
 	FireBase.delete_document("friendRequests/%s/%s/%s"%[FireBase.profile.email,email,email],http)
-	
 
-func _on_RechazarButton_pressed():
+func _on_DeclineButton_pressed():
 	var email = requestEmail.text
 	request = "delete"
 	FireBase.delete_document("friendRequests/%s/%s/%s"%[FireBase.profile.email,email,email],http)
+
+
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body := JSON.parse(body.get_string_from_ascii())
@@ -41,8 +42,3 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		FireBase.save_document("friends/%s/%s?documentId=%s" % [FireBase.profile.email,email,email],{}, http)
 	elif request == "END":
 		queue_free()
-		
-		
-		
-		
-		
