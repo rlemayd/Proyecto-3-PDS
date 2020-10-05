@@ -95,7 +95,6 @@ margin_right = 922.0
 margin_bottom = 77.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
-expand_to_text_length = true
 
 [node name="Button" type="TextureButton" parent="UI/VBoxContainer"]
 margin_left = 313.0
