@@ -23,5 +23,5 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	print(response_body.result)
 
 
-func _on_test_pressed():
-	FireBase.test(http)
+func _on_ExitButton_pressed():
+	get_tree().change_scene("res://Menus/MainMenu.tscn")

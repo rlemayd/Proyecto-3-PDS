@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/LoggedMainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Menus/Elements/Buttons/ButtonBlue.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonRed.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Menus/Elements/Buttons/Textures/ButtonTextureOrange.png" type="Texture" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -110,7 +112,7 @@ size_flags_vertical = 4
 [node name="ButtonText" parent="UI/VBoxContainer/FriendsButton" index="0"]
 text = "Friends"
 
-[node name="test" parent="UI/VBoxContainer" instance=ExtResource( 4 )]
+[node name="GamesButton" parent="UI/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 104.0
@@ -118,17 +120,31 @@ margin_right = 304.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 200, 100 )
 size_flags_vertical = 4
+texture_normal = ExtResource( 7 )
 
-[node name="ButtonText" parent="UI/VBoxContainer/test" index="0"]
+[node name="ButtonText" parent="UI/VBoxContainer/GamesButton" index="0"]
+margin_left = 88.0
 margin_top = 29.0
+margin_right = 216.0
 margin_bottom = 67.0
-text = "Test"
+text = "Games"
+
+[node name="ExitButton" parent="UI/VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 208.0
+margin_right = 304.0
+margin_bottom = 308.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="ButtonText" parent="UI/VBoxContainer/ExitButton" index="0"]
+text = "Exit"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/test" to="." method="_on_test_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 [editable path="UI/HBoxContainer/NotificationsButton"]
@@ -137,4 +153,6 @@ text = "Test"
 
 [editable path="UI/VBoxContainer/FriendsButton"]
 
-[editable path="UI/VBoxContainer/test"]
+[editable path="UI/VBoxContainer/GamesButton"]
+
+[editable path="UI/VBoxContainer/ExitButton"]

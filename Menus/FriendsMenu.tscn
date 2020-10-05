@@ -34,14 +34,14 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="UI"]
-margin_left = 375.0
+margin_left = 240.0
 margin_top = 40.0
-margin_right = 294.0
-margin_bottom = 103.0
+margin_right = 792.0
+margin_bottom = 143.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
-text = "ColorMe"
+text = "Friends"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
