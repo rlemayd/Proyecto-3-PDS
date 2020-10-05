@@ -31,3 +31,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		else:
 			request = "send_request"
 			FireBase.get_document("friendRequests/%s" % email.text, http)
+
+
+
+func _on_BackButton_pressed():
+	get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")

@@ -22,3 +22,7 @@ func _on_RegisterButton_pressed():
 		notification.text = "Invalid password or username"
 		return
 	FireBase.register(username.text, password.text, http)
+
+
+func _on_TextureButton_pressed():
+	get_tree().change_scene("res://Menus/MainMenu.tscn")

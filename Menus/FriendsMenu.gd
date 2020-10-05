@@ -15,3 +15,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		for item in friends:
 			if(item.has("document")):
 				ReciclerView.addItem(item["document"]["name"].split("/")[-2])
+
+
+func _on_BackButton_pressed():
+	get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")

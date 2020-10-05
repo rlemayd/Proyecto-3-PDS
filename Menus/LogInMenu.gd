@@ -22,3 +22,7 @@ func _on_LoginButton_pressed():
 		notification.text = "Please, enter your username and password"
 		return
 	FireBase.login(username.text, password.text, http)
+
+
+func _on_TextureButton_pressed():
+	get_tree().change_scene("res://Menus/MainMenu.tscn")

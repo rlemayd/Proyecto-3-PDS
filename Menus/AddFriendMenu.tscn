@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/AddFriendMenu.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://arrow-back.png" type="Texture" id=4]
+[ext_resource path="res://Menus/Elements/Buttons/Textures/ButtonTextureGreen.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -13,11 +15,11 @@ size = 60
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 26
+size = 54
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 27
+size = 30
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=5]
@@ -43,21 +45,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
-anchor_bottom = 0.043
-margin_left = 50.0
-margin_right = 972.0
-margin_bottom = 576.0
-custom_constants/separation = 100
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="UI/VBoxContainer"]
-margin_top = 79.0
-margin_right = 922.0
-margin_bottom = 182.0
+[node name="Title" type="Label" parent="UI"]
+margin_left = 375.0
+margin_top = 40.0
+margin_right = 294.0
+margin_bottom = 103.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
 text = "ColorMe"
@@ -66,10 +58,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchor_bottom = 0.043
+margin_left = 50.0
+margin_top = 128.0
+margin_right = 972.0
+margin_bottom = 575.0
+custom_constants/separation = 100
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 282.0
+margin_top = 90.0
 margin_right = 922.0
-margin_bottom = 357.0
+margin_bottom = 167.0
 size_flags_horizontal = 7
 custom_constants/separation = 20
 alignment = 1
@@ -78,8 +82,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+margin_top = 1.0
 margin_right = 369.0
-margin_bottom = 75.0
+margin_bottom = 76.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Mail amigo:"
@@ -87,19 +92,36 @@ text = "Mail amigo:"
 [node name="LineEdit" type="LineEdit" parent="UI/VBoxContainer/HBoxContainer"]
 margin_left = 389.0
 margin_right = 922.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
 expand_to_text_length = true
 
-[node name="Button" type="Button" parent="UI/VBoxContainer"]
-margin_left = 396.0
-margin_top = 457.0
-margin_right = 525.0
-margin_bottom = 497.0
+[node name="Button" type="TextureButton" parent="UI/VBoxContainer"]
+margin_left = 313.0
+margin_top = 267.0
+margin_right = 608.0
+margin_bottom = 357.0
+rect_min_size = Vector2( 295, 90 )
 size_flags_horizontal = 4
+texture_normal = ExtResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/VBoxContainer/Button"]
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 297.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 4 )
 text = "Agregar"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="notification" type="Label" parent="UI"]
 margin_top = 486.0
@@ -111,6 +133,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BackButton" type="TextureButton" parent="UI"]
+margin_left = 64.0
+margin_top = 40.0
+margin_right = 149.0
+margin_bottom = 126.0
+texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="UI/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="UI/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

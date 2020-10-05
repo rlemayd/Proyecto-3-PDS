@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Menus/RegisterMenu.gd" type="Script" id=3]
 [ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://arrow-back.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 90
@@ -14,10 +15,22 @@ size = 60
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 60
+size = 54
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 54
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 54
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
 font_data = ExtResource( 2 )
 
 [node name="RegisterMenu" type="Control"]
@@ -35,7 +48,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="."]
+margin_left = 268.0
+margin_top = 8.0
+margin_right = 756.0
+margin_bottom = 124.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.431373, 0.631373, 0.788235, 1 )
+text = "Registration"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_top = 115.0
 margin_right = 1024.0
 margin_bottom = 576.0
 custom_constants/separation = 16
@@ -44,30 +72,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 11.0
-margin_right = 1024.0
-margin_bottom = 127.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0.431519, 0.629844, 0.789063, 1 )
-text = "Registration"
-align = 1
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 143.0
+margin_top = 16.0
 margin_right = 1024.0
-margin_bottom = 528.0
+margin_bottom = 407.0
 custom_constants/separation = 20
 
 [node name="UsernameContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
 margin_right = 1024.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
 margin_left = 137.0
+margin_top = 1.0
 margin_right = 482.0
-margin_bottom = 75.0
+margin_bottom = 76.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Username:"
@@ -75,60 +95,67 @@ text = "Username:"
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/UsernameContainer"]
 margin_left = 486.0
 margin_right = 886.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 3 )
 
 [node name="PasswordContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-margin_top = 95.0
+margin_top = 97.0
 margin_right = 1024.0
-margin_bottom = 170.0
+margin_bottom = 174.0
 custom_constants/separation = 14
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
 margin_left = 139.0
+margin_top = 1.0
 margin_right = 470.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 3 )
+margin_bottom = 76.0
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Password:"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/PasswordContainer"]
 margin_left = 484.0
 margin_right = 884.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 5 )
+secret = true
 expand_to_text_length = true
 
 [node name="ConfirmPasswordContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer2"]
-margin_top = 190.0
+margin_top = 194.0
 margin_right = 1024.0
-margin_bottom = 265.0
+margin_bottom = 271.0
 custom_constants/separation = 71
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/VBoxContainer2/ConfirmPasswordContainer"]
 margin_left = 138.0
+margin_top = 1.0
 margin_right = 414.0
-margin_bottom = 75.0
-custom_fonts/font = SubResource( 3 )
+margin_bottom = 76.0
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Confirm:"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer2/ConfirmPasswordContainer"]
 margin_left = 485.0
 margin_right = 885.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 6 )
+secret = true
 expand_to_text_length = true
 
 [node name="RegisterButton" parent="VBoxContainer/VBoxContainer2" instance=ExtResource( 4 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 362.0
-margin_top = 285.0
+margin_top = 291.0
 margin_right = 662.0
-margin_bottom = 385.0
+margin_bottom = 391.0
 rect_min_size = Vector2( 300, 100 )
 size_flags_horizontal = 4
 
@@ -136,15 +163,26 @@ size_flags_horizontal = 4
 text = "Register"
 
 [node name="notification" type="Label" parent="VBoxContainer"]
-margin_top = 544.0
+margin_top = 423.0
 margin_right = 1024.0
-margin_bottom = 565.0
-custom_fonts/font = SubResource( 4 )
+margin_bottom = 444.0
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 32.0
+margin_top = 16.0
+margin_right = 117.0
+margin_bottom = 101.0
+texture_normal = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="VBoxContainer/VBoxContainer2/RegisterButton" to="." method="_on_RegisterButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
 
 [editable path="VBoxContainer/VBoxContainer2/RegisterButton"]
