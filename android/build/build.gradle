@@ -48,6 +48,7 @@ dependencies {
     implementation libraries.supportCoreUtils
     implementation libraries.kotlinStdLib
     implementation libraries.v4Support
+	implementation 'com.google.firebase:firebase-core:17.0.0'
 
     if (rootProject.findProject(":lib")) {
         implementation project(":lib")

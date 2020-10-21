@@ -82,12 +82,3 @@ func update_document(path: String, fields: Dictionary, http: HTTPRequest) -> voi
 func delete_document(path: String, http: HTTPRequest) -> void:
 	var url := FIRESTORE_URL + path
 	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_DELETE)
-	
-func test(http: HTTPRequest):
-	var url := FIRESTORE_URL+"friends/b@b.com:listCollectionIds?key=%s"%API_KEY
-	print(url)
-	print("NOMBRE")
-	print(user_info.token)
-	print("---------------")
-	http.request(url, _get_request_headers(), false, HTTPClient.METHOD_POST,to_json({}))
-	

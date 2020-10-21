@@ -144,6 +144,7 @@ text = "Exit"
 [connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/GamesButton" to="." method="_on_GamesButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
