@@ -18,91 +18,38 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			response_body = JSON.parse(body.get_string_from_ascii())
 			if(response_body.result.has("fields")):
-				print(response_body.result.fields)
+				#print(response_body.result.fields)
+				for item in response_body.result.fields:
+					ReciclerView.addItem(String(item))
 		# If you don't have games yet
 		else:
 			FireBase.save_document("MyGames?documentId=%s" % FireBase.profile.email,{}, http)
-	elif request == "game_id_checker":
-		#Create the game with the participants first
+	elif request == "game_create":
 		if response_code != 200:
-			var hour = OS.get_time()
-			var ghour = String(hour.hour) +":"+ String(hour.minute) +":"+ String(hour.second)
-			print(ghour)
-			var fields = {
-				"inTurn": {"booleanValue": true},
-				"color": {"integerValue": 1},
-				#"position": {"geoPoint": [0,0]}
-				#"time":  {"timeValue": ghour}
-			}
-			request = "Create_New_Game"
-			FireBase.save_document("Games/%s/Participants?documentId=%s" % [my_random_number, FireBase.profile.email], fields, http)
+			request = "game_id_checker"
+			FireBase.save_document("Games?documentId=%s" % my_random_number,{}, http)
 		else:
 			rng.randomize()
 			my_random_number = rng.randi_range(0, 99999999)
 			FireBase.get_document("Games/%s/" % my_random_number, http)
+	elif request == "game_id_checker":
+		#Create the game with the participants first
+		var hour = OS.get_time()
+		var ghour = String(hour.hour) +":"+ String(hour.minute) +":"+ String(hour.second)
+		print(ghour)
+		var fields = {
+			"inTurn": {"booleanValue": true},
+			"color": {"integerValue": 1},
+			#"position": {"geoPoint": [0,0]}
+			#"time":  {"timeValue": ghour}
+		}
+		request = "Create_New_Game"
+		FireBase.save_document("Games/%s/Participants?documentId=%s" % [my_random_number, FireBase.profile.email], fields, http)
 	elif request == "Create_New_Game":
 		# Create the map in the db
 		if response_code == 200:
-			var fields = {
-				"1": {
-						"mapValue":
-						{
-							"fields":
-							{
-								"1": {
-										"mapValue":
-										{
-											"fields":
-											{
-												"color": {"integerValue": 4},
-												"power": {"integerValue": 3}
-											}
-										}
-									},
-								"2": {
-										"mapValue":
-										{
-											"fields":
-											{
-												"color": {"integerValue": 4},
-												"power": {"integerValue": 3}
-											}
-										}
-									}
-							}
-						}
-					},
-				"2": {
-						"mapValue":
-						{
-							"fields":
-							{
-								"1": {
-										"mapValue":
-										{
-											"fields":
-											{
-												"color": {"integerValue": 4},
-												"power": {"integerValue": 3}
-											}
-										}
-									},
-								"2": {
-										"mapValue":
-										{
-											"fields":
-											{
-												"color": {"integerValue": 4},
-												"power": {"integerValue": 3}
-											}
-										}
-									}
-							}
-						}
-					}
-				}
 			request = "Set_Variables_Of_Game"
-			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], fields, http)
+			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], Background.map1, http)
 	elif request == "Set_Variables_Of_Game":
 		#Set the variables of the game
 		if response_code == 200:
@@ -139,7 +86,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			request = "Game_Started"
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
-	print("HOLAAA ", " ", response_code, " ", request)
+	#print("HOLAAA ", " ", response_code, " ", request)
 
 
 func _on_BackButton_pressed():
@@ -147,7 +94,7 @@ func _on_BackButton_pressed():
 
 
 func _on_NewGameButton_pressed():
-	request = "game_id_checker"
+	request = "game_create"
 	rng.randomize()
 	my_random_number = rng.randi_range(0, 99999999)
 	FireBase.get_document("Games/%s/" % my_random_number, http)

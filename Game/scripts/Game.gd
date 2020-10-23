@@ -20,10 +20,11 @@ func _input(event):
 	#if event is InputEventScreenTouch:
 		var touched_position = grid.world_to_map(event.position)
 		# If the player is pressing a tile near the player
-		if player_position.distance_to(touched_position) < 2 and player_position.distance_to(touched_position) != 0:
+		if player_position.distance_to(touched_position) < 2 and player_position.distance_to(touched_position) != 0 and grid.tile_set.tile_get_name(grid.get_cellv(touched_position)):
 			player.position = grid.map_to_world(touched_position)
+			print(grid.get_used_cells())
 			# So it paints only the white squares
-			if grid.tile_set.tile_get_name(grid.get_cellv(touched_position)) == "white":
-				grid.set_cellv(touched_position, grid.tile_set.find_tile_by_name("yellow"))
+			#if grid.tile_set.tile_get_name(grid.get_cellv(touched_position)) == "white":
+			grid.set_cellv(touched_position, grid.tile_set.find_tile_by_name("yellow"))
 			
 		
