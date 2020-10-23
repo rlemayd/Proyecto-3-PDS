@@ -8,12 +8,12 @@ var my_random_number = 0
 var response_body = {}
 
 func _ready():
-	request = "get_users"
+	request = "get_all_current_games"
 	FireBase.get_document("MyGames/%s" % FireBase.profile.email, http)
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# To set the games you're already playing
-	if request == "get_users":
+	if request == "get_all_current_games":
 		# If there are games
 		if response_code == 200:
 			response_body = JSON.parse(body.get_string_from_ascii())
@@ -34,13 +34,13 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				#"position": {"geoPoint": [0,0]}
 				#"time":  {"timeValue": ghour}
 			}
-			request = "creation"
+			request = "Create_New_Game"
 			FireBase.save_document("Games/%s/Participants?documentId=%s" % [my_random_number, FireBase.profile.email], fields, http)
 		else:
 			rng.randomize()
 			my_random_number = rng.randi_range(0, 99999999)
 			FireBase.get_document("Games/%s/" % my_random_number, http)
-	elif request == "creation":
+	elif request == "Create_New_Game":
 		# Create the map in the db
 		if response_code == 200:
 			var fields = {
@@ -101,9 +101,9 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 						}
 					}
 				}
-			request = "finalReq"
+			request = "Set_Variables_Of_Game"
 			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], fields, http)
-	elif request == "finalReq":
+	elif request == "Set_Variables_Of_Game":
 		#Set the variables of the game
 		if response_code == 200:
 			var fields = {
@@ -114,29 +114,30 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					"whiteCells": {"integerValue": 10},
 					"yellowCells": {"integerValue": 1}
 				}
-			request = "setUserInDb"
+			request = "Set_User_In_Game_DB"
 			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Info"], fields, http)
-	elif request == "setUserInDb":
+	elif request == "Set_User_In_Game_DB":
 		#We set the game to the user
 		if response_code == 200:
-			request = "UserExists"
+			request = "See_If_Has_More_Games"
 			FireBase.get_document("MyGames/%s" % FireBase.profile.email, http)
 		#
-	elif request == "UserExists":
+	elif request == "See_If_Has_More_Games":
 		#We update or save the code of the game to the user
 		if response_code == 200:
-			request = "done"
+			request = "Added_User_To_Game"
 			if response_body.result.has("fields"):
 				response_body.result.fields[my_random_number] = {"integerValue": my_random_number}
 				FireBase.update_document("MyGames/%s" % FireBase.profile.email, response_body.result.fields, http)
 			else:
 				FireBase.update_document("MyGames/%s" % FireBase.profile.email, {my_random_number:{"integerValue": my_random_number}}, http)
 		else:
-			request = "done"
+			request = "Added_User_To_Game"
 			FireBase.save_document("MyGames/%s" % FireBase.profile.email, {my_random_number:{"integerValue": my_random_number}}, http)
-	elif request == "done":
+	elif request == "Added_User_To_Game":
 		# Go to the game scene
 		if response_code == 200:
+			request = "Game_Started"
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
 	print("HOLAAA ", " ", response_code, " ", request)
 
@@ -149,4 +150,4 @@ func _on_NewGameButton_pressed():
 	request = "game_id_checker"
 	rng.randomize()
 	my_random_number = rng.randi_range(0, 99999999)
-	FireBase.get_document("Games/%s/" % my_random_number , http)
+	FireBase.get_document("Games/%s/" % my_random_number, http)
