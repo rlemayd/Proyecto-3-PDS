@@ -42,12 +42,19 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			"inTurn": {"booleanValue": true},
 			"color": {"integerValue": 1},
 			"position": {"arrayValue": {
-				"values": {
-					0: 0, 1: 0
+				"values": [
+					{
+					  "integerValue": 1
+					},
+					{
+					  "integerValue": 1
+					}
+				  ]
 				}
-			}}
+			}
 			#"time":  {"timeValue": ghour}
 		}
+		Background.currentPosition = Vector2(1,1)
 		request = "Create_New_Game"
 		FireBase.save_document("Games/%s/Participants?documentId=%s" % [my_random_number, FireBase.profile.email], fields, http)
 	elif request == "Create_New_Game":

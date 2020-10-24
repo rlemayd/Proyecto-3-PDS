@@ -2,7 +2,12 @@ extends Node
 
 var currentMap
 var currentColor
+var currentPosition
+
+
 enum {white,green,blue,red,yellow,orange}
+var positions = [[1,6],[6,1],[6,6],[3,3]]
+
 
 var map1 = {
 				"1": {

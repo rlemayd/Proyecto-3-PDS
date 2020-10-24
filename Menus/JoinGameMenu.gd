@@ -54,8 +54,20 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 						},
 					"inTurn": {
 						"booleanValue": false
-					}
+					},
+					"position": {"arrayValue": {
+							"values": [
+								{
+								  "integerValue": Background.positions[myColor-1][0]
+								},
+								{
+								  "integerValue": Background.positions[myColor-1][1]
+								}
+							  ]
+							}
+						}
 				}
+				Background.currentPosition = Vector2(Background.positions[myColor-1][0],Background.positions[myColor-1][1])
 				FireBase.save_document("Games/%s/Participants?documentId=%s" % [codeField.text, FireBase.profile.email],dict, http)
 				
 	elif request == "save_me_as_participant":

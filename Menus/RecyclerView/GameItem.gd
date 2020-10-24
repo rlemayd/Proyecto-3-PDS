@@ -23,6 +23,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			response_body = JSON.parse(body.get_string_from_ascii())
 			if response_body.result.fields.color.integerValue:
 				Background.currentColor = response_body.result.fields.color.integerValue
+			if response_body.result.fields.position.arrayValue:
+				var values = response_body.result.fields.position.arrayValue.values
+				print(values)
+				Background.currentPosition = Vector2(values[0].integerValue,values[1].integerValue)
+				print(Background.currentPosition)
 				get_tree().change_scene("res://Game/scenes/Game.tscn")
 		else:
 			print("Error")
