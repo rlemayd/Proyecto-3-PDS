@@ -1,5 +1,9 @@
 extends Node
 
+var currentMap
+var currentColor
+enum {white,green,blue,red,yellow,orange}
+
 var map1 = {
 				"1": {
 						"mapValue":
@@ -875,3 +879,7 @@ var map2 = {
 						}
 					}
 			}
+
+func getMap():
+	currentMap = map1
+	return currentMap

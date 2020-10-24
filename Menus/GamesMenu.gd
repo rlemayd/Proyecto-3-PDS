@@ -49,7 +49,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# Create the map in the db
 		if response_code == 200:
 			request = "Set_Variables_Of_Game"
-			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], Background.map1, http)
+			
+			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], Background.getMap(), http)
 	elif request == "Set_Variables_Of_Game":
 		#Set the variables of the game
 		if response_code == 200:
@@ -73,6 +74,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		#We update or save the code of the game to the user
 		if response_code == 200:
 			request = "Added_User_To_Game"
+			response_body = JSON.parse(body.get_string_from_ascii())
 			if response_body.result.has("fields"):
 				response_body.result.fields[my_random_number] = {"integerValue": my_random_number}
 				FireBase.update_document("MyGames/%s" % FireBase.profile.email, response_body.result.fields, http)
@@ -85,6 +87,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# Go to the game scene
 		if response_code == 200:
 			request = "Game_Started"
+			#TODO: CAMBIAR COLOR EN BACKGROUND
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
 	#print("HOLAAA ", " ", response_code, " ", request)
 
@@ -98,3 +101,7 @@ func _on_NewGameButton_pressed():
 	rng.randomize()
 	my_random_number = rng.randi_range(0, 99999999)
 	FireBase.get_document("Games/%s/" % my_random_number, http)
+
+
+func _on_JoinGameButton_pressed():
+	get_tree().change_scene("res://Menus/JoinGameMenu.tscn")

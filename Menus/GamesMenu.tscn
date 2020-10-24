@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/Elements/Buttons/ButtonGreen.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Menus/GamesMenu.gd" type="Script" id=4]
 [ext_resource path="res://arrow-back.png" type="Texture" id=5]
 [ext_resource path="res://Menus/RecyclerView/GamesScrollBox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Menus/Elements/Buttons/ButtonBlue.tscn" type="PackedScene" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -54,6 +55,7 @@ margin_top = 168.0
 margin_right = 1022.0
 margin_bottom = 432.0
 size_flags_horizontal = 4
+size_flags_vertical = 9
 custom_constants/separation = 30
 __meta__ = {
 "_edit_use_anchors_": false
@@ -63,6 +65,7 @@ __meta__ = {
 anchor_right = 0.0
 anchor_bottom = 0.0
 size_flags_horizontal = 2
+size_flags_vertical = 0
 
 [node name="notification" type="Label" parent="UI"]
 margin_left = 8.0
@@ -86,17 +89,29 @@ __meta__ = {
 }
 
 [node name="NewGameButton" parent="UI" instance=ExtResource( 2 )]
-margin_left = 360.0
+margin_left = 176.0
 margin_top = 456.0
-margin_right = 656.0
+margin_right = 472.0
 margin_bottom = 552.0
 
 [node name="ButtonText" parent="UI/NewGameButton" index="0"]
 text = "New game"
 
+[node name="JoinGameButton" parent="UI" instance=ExtResource( 7 )]
+margin_left = 560.0
+margin_top = 456.0
+margin_right = 856.0
+margin_bottom = 552.0
+
+[node name="ButtonText" parent="UI/JoinGameButton" index="0"]
+text = "Join"
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="UI/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="pressed" from="UI/NewGameButton" to="." method="_on_NewGameButton_pressed"]
+[connection signal="pressed" from="UI/JoinGameButton" to="." method="_on_JoinGameButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 [editable path="UI/NewGameButton"]
+
+[editable path="UI/JoinGameButton"]
