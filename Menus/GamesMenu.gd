@@ -13,10 +13,11 @@ func _ready():
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# To set the games you're already playing
+	response_body = JSON.parse(body.get_string_from_ascii())
+	print(response_code, response_body.result, request)
 	if request == "get_all_current_games":
 		# If there are games
 		if response_code == 200:
-			response_body = JSON.parse(body.get_string_from_ascii())
 			if(response_body.result.has("fields")):
 				#print(response_body.result.fields)
 				for item in response_body.result.fields:
@@ -40,7 +41,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		var fields = {
 			"inTurn": {"booleanValue": true},
 			"color": {"integerValue": 1},
-			#"position": {"geoPoint": [0,0]}
+			"position": {"arrayValue": {
+				"values": {
+					0: 0, 1: 0
+				}
+			}}
 			#"time":  {"timeValue": ghour}
 		}
 		request = "Create_New_Game"
