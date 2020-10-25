@@ -150,7 +150,6 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
 	if request == "check_turn":
 		if response_code == 200:
-			print(response_body.result.fields)
 			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
 				request = "get_players"
