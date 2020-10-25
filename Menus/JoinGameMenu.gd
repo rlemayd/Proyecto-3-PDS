@@ -58,16 +58,16 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					"position": {"arrayValue": {
 							"values": [
 								{
-								  "integerValue": Background.positions[myColor-1][0]
+								  "integerValue": Background.positions[myColor-2][0]
 								},
 								{
-								  "integerValue": Background.positions[myColor-1][1]
+								  "integerValue": Background.positions[myColor-2][1]
 								}
 							  ]
 							}
 						}
 				}
-				Background.currentPosition = Vector2(Background.positions[myColor-1][0],Background.positions[myColor-1][1])
+				Background.currentPosition = Vector2(Background.positions[myColor-2][0],Background.positions[myColor-2][1])
 				FireBase.save_document("Games/%s/Participants?documentId=%s" % [codeField.text, FireBase.profile.email],dict, http)
 				
 	elif request == "save_me_as_participant":
@@ -99,15 +99,24 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	elif request == "get_map":
 		if response_code == 200:
 			response_body = JSON.parse(body.get_string_from_ascii())
-			print(response_body.result)
 			if(response_body.result.has("fields")):
-				print("chao")
 				Background.currentMap = response_body.result.fields
-				#TODO: CAMBIAR COLOR EN BACKGROUND
-				get_tree().change_scene("res://Game/scenes/Game.tscn")
+				request = "get_players"
+				FireBase.get_document("Games/%s/Participants" % codeField.text, http)
 		else:
 			notification.text = "Error getting map"
-
-
+	elif request == "get_players":
+		if response_code == 200:
+			response_body = JSON.parse(body.get_string_from_ascii())
+			var players = {}
+			for player in response_body.result.documents:
+				var player_pos = [player.fields.position.arrayValue.values[0].integerValue,player.fields.position.arrayValue.values[1].integerValue]
+				players[player.fields.color.integerValue] = player_pos
+				
+			Background.currentPlayers = players
+			Background.currentGameCode = codeField.text
+			get_tree().change_scene("res://Game/scenes/Game.tscn")
+			
+			
 func _on_BackButton_pressed():
 	get_tree().change_scene("res://Menus/GamesMenu.tscn")
