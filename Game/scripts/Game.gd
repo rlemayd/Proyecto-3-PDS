@@ -141,7 +141,7 @@ func changePosition(position:Vector2):
 	FireBase.update_document("Games/%s/Participants/%s" % [Background.currentGameCode, FireBase.profile.email], Background.currentPlayerData, http)
 	
 func endTurn():
-	Background.currentGameData["currentTurn"]["integerValue"] = (int(Background.currentGameData["currentTurn"]["integerValue"]) % 5) + 1
+	Background.currentGameData["currentTurn"]["integerValue"] = (int(Background.currentGameData["currentTurn"]["integerValue"]) % int(Background.currentGameData["playerQuantity"]["integerValue"])) + 1
 	request = "end_turn"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
