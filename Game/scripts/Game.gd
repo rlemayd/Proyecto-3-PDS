@@ -4,6 +4,7 @@ onready var grid = $Map
 onready var player = preload("res://Game/player/Player.tscn").instance()
 onready var http = $HTTPRequest
 onready var http2 = $HTTPRequest2
+onready var button = $Button
 var camera
 
 var greenPlayer = load("res://Game/player/Sprites/GreenPlayer.png")
@@ -14,6 +15,7 @@ var orangePlayer = load("res://Game/player/Sprites/OrangePlayer.png")
 
 var players = {}
 
+var gameStarted = false
 
 var request = ""
 var last_position
@@ -27,6 +29,8 @@ func _ready():
 	loadPlayers()
 	loadMyself()
 	
+	button.set_position(Vector2(-456,-156))
+	
 	_timer = Timer.new()
 	add_child(_timer)
 	_timer.connect("timeout", self, "_on_Timer_timeout")
@@ -35,7 +39,10 @@ func _ready():
 	_timer.start()
 
 func _on_Timer_timeout():
-	checkTurn()
+	if gameStarted:
+		checkTurn()
+	else:
+		checkPlayers()
 
 func loadMap():
 	for i in Background.currentMap.keys():
@@ -95,11 +102,13 @@ func loadMyself():
 	self.add_child(player)
 
 func movePlayers():
-	print(players)
-	print(Background.currentPlayers)
+	for player in Background.currentPlayers.keys():
+		if player in players.keys():
+			players[player].position = grid.map_to_world(Vector2(Background.currentPlayers[player][0],Background.currentPlayers[player][1]))
+			grid.set_cellv(grid.world_to_map(players[player].position), grid.tile_set.find_tile_by_name(String(player)))
 
 func _input(event):
-	if int(Background.currentGameData["currentTurn"]["integerValue"]) == int(Background.currentColor):
+	if int(Background.currentGameData["currentTurn"]["integerValue"]) == int(Background.currentColor) and gameStarted:
 		var player_position = grid.world_to_map(player.global_position)
 		if event is InputEventMouseButton and event.pressed:
 		#if event is InputEventScreenTouch and event.pressed:
@@ -135,6 +144,9 @@ func checkTurn():
 	request = "check_turn"
 	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
 
+func checkPlayers():
+	pass
+
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
 	if request == "end_turn":
@@ -163,3 +175,9 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				players[player.fields.color.integerValue] = player_pos
 			Background.currentPlayers = players
 			movePlayers()
+
+
+func _on_Button_pressed():
+	gameStarted = true
+	button.visible = false
+	button.disabled = true
