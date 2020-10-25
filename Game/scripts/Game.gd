@@ -3,6 +3,7 @@ extends Node2D
 onready var grid = $Map
 onready var player = preload("res://Game/player/Player.tscn").instance()
 onready var http = $HTTPRequest
+onready var http2 = $HTTPRequest2
 var camera
 
 var greenPlayer = load("res://Game/player/Sprites/GreenPlayer.png")
@@ -107,7 +108,6 @@ func _input(event):
 			if player_position.distance_to(touched_position) < 2 and player_position.distance_to(touched_position) != 0 and grid.tile_set.tile_get_name(grid.get_cellv(touched_position)) and checkPosition(touched_position):
 				player.position = grid.map_to_world(touched_position)
 				grid.set_cellv(touched_position, grid.tile_set.find_tile_by_name(String(Background.currentColor)))
-				request = "end_turn"
 				last_position = touched_position
 				endTurn()
 
@@ -117,37 +117,44 @@ func checkPosition(position:Vector2):
 
 func changeMap(position:Vector2):
 	Background.currentMap[String(position.x)]["mapValue"]["fields"][String(position.y)]["mapValue"]["fields"]["color"]["integerValue"] = Background.currentColor
+	request = "change_map"
 	FireBase.update_document("Games/%s/Map/Cells" % Background.currentGameCode, Background.currentMap, http)
 
 func changePosition(position:Vector2):
 	Background.currentPlayerData["position"]["arrayValue"]["values"][0]["integerValue"] = position.x
 	Background.currentPlayerData["position"]["arrayValue"]["values"][1]["integerValue"] = position.y
+	request = "change_position"
 	FireBase.update_document("Games/%s/Participants/%s" % [Background.currentGameCode, FireBase.profile.email], Background.currentPlayerData, http)
 	
 func endTurn():
 	Background.currentGameData["currentTurn"]["integerValue"] = (int(Background.currentGameData["currentTurn"]["integerValue"]) % 5) + 1
+	request = "end_turn"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
 func checkTurn():
 	request = "check_turn"
-	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http)
+	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
 	if request == "end_turn":
 		if response_code == 200:
-			request = "change_position"
 			changePosition(last_position)
 	elif request == "change_position":
 		if response_code == 200:
-			request = "change_map"
 			changeMap(last_position)
-	elif request == "check_turn":
+	
+
+
+func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
+	var response_body = JSON.parse(body.get_string_from_ascii())
+	if request == "check_turn":
 		if response_code == 200:
+			print(response_body.result.fields)
 			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
 				request = "get_players"
-				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http)
+				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 	elif request == "get_players":
 		if response_code == 200:
 			response_body = JSON.parse(body.get_string_from_ascii())
