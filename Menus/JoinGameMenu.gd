@@ -33,16 +33,23 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				if response_body.result.fields.has(codeField.text):
 					notification.text = "you are already in the game"
 				else:
-					request = "check_participants"
-					FireBase.get_document("Games/%s/Participants" % codeField.text, http)
+					request = "get_map_info"
+					FireBase.get_document("Games/%s/Map/Info" % codeField.text, http)
 			else:
-				request = "check_participants"
-				FireBase.get_document("Games/%s/Participants" % codeField.text, http)
+				request = "get_map_info"
+				FireBase.get_document("Games/%s/Map/Info" % codeField.text, http)
+				
+	elif request == "get_map_info":
+		if response_code == 200:
+			response_body = JSON.parse(body.get_string_from_ascii())
+			Background.currentGameData = response_body.result.fields
+			request = "check_participants"
+			FireBase.get_document("Games/%s/Participants" % codeField.text, http)
 	elif request == "check_participants":
 		if response_code != 200:
 			notification.text = "Error finding players"
 		else:
-			if response_body.result.documents.size() >= 5:
+			if response_body.result.documents.size() >= int(Background.currentGameData["playerQuantity"]["integerValue"]):
 				notification.text = "Game is full"
 			else:
 				request = "save_me_as_participant"
@@ -52,9 +59,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					"color": {
 						"integerValue": myColor
 						},
-					"inTurn": {
-						"booleanValue": false
-					},
 					"position": {"arrayValue": {
 							"values": [
 								{
@@ -67,6 +71,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 							}
 						}
 				}
+				Background.currentPlayerData = dict
 				Background.currentPosition = Vector2(Background.positions[myColor-2][0],Background.positions[myColor-2][1])
 				FireBase.save_document("Games/%s/Participants?documentId=%s" % [codeField.text, FireBase.profile.email],dict, http)
 				
@@ -116,7 +121,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			Background.currentPlayers = players
 			Background.currentGameCode = codeField.text
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
-			
-			
+
 func _on_BackButton_pressed():
 	get_tree().change_scene("res://Menus/GamesMenu.tscn")

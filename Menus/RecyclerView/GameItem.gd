@@ -21,6 +21,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	elif request == "get_player_color":
 		if response_code == 200:
 			response_body = JSON.parse(body.get_string_from_ascii())
+			if response_body.result.fields:
+				Background.currentPlayerData = response_body.result.fields
 			if response_body.result.fields.color.integerValue:
 				Background.currentColor = response_body.result.fields.color.integerValue
 			if response_body.result.fields.position.arrayValue:
@@ -40,6 +42,12 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				
 			Background.currentPlayers = players
 			Background.currentGameCode = gameCode
+			request = "get_map_info"
+			FireBase.get_document("Games/%s/Map/Info" % gameCode, http)
+	elif request == "get_map_info":
+		if response_code == 200:
+			response_body = JSON.parse(body.get_string_from_ascii())
+			Background.currentGameData = response_body.result.fields
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
 
 

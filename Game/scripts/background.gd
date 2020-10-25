@@ -1,10 +1,12 @@
 extends Node
 
-var currentMap
-var currentColor
-var currentPosition
-var currentPlayers
-var currentGameCode
+var currentMap = {}
+var currentColor = 0
+var currentPosition = {}
+var currentPlayers = {}
+var currentGameCode = 0
+var currentPlayerData = {}
+var currentGameData = {}
 
 
 enum {white,green,blue,red,yellow,orange}

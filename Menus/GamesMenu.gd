@@ -39,7 +39,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		var ghour = String(hour.hour) +":"+ String(hour.minute) +":"+ String(hour.second)
 		print(ghour)
 		var fields = {
-			"inTurn": {"booleanValue": true},
 			"color": {"integerValue": 1},
 			"position": {"arrayValue": {
 				"values": [
@@ -52,9 +51,9 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				  ]
 				}
 			}
-			#"time":  {"timeValue": ghour}
 		}
 		Background.currentPosition = Vector2(1,1)
+		Background.currentPlayerData = fields
 		request = "Create_New_Game"
 		FireBase.save_document("Games/%s/Participants?documentId=%s" % [my_random_number, FireBase.profile.email], fields, http)
 	elif request == "Create_New_Game":
@@ -68,12 +67,16 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			var fields = {
 					"totalCells": {"integerValue": 100},
-					"blueCells": {"integerValue": 30},
-					"redCells": {"integerValue": 39},
-					"greenCells": {"integerValue": 20},
 					"whiteCells": {"integerValue": 10},
-					"yellowCells": {"integerValue": 1}
+					"greenCells": {"integerValue": 0},
+					"blueCells": {"integerValue": 0},
+					"redCells": {"integerValue": 0},
+					"yellowCells": {"integerValue": 0},
+					"orangeCells": {"integerValue": 0},
+					"currentTurn": {"integerValue": 1},
+					"playerQuantity": {"integerValue": 5}
 				}
+			Background.currentGameData = fields
 			request = "Set_User_In_Game_DB"
 			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Info"], fields, http)
 	elif request == "Set_User_In_Game_DB":
