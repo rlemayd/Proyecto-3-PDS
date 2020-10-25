@@ -6,9 +6,6 @@ onready var notification : Label = $UI/notification
 
 var request = ""
 
-
-
-
 func _on_Button_pressed():
 	if codeField.text.empty():
 		notification.text = "Invalid Game Code"

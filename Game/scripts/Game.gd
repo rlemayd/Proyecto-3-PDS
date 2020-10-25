@@ -15,7 +15,7 @@ var orangePlayer = load("res://Game/player/Sprites/OrangePlayer.png")
 
 var players = {}
 
-var gameStarted = false
+var gameStarted = Background.currentGameData["isGameStarted"]["booleanValue"]
 
 var request = ""
 var last_position
@@ -29,6 +29,9 @@ func _ready():
 	loadPlayers()
 	loadMyself()
 	
+	if(int(Background.currentColor) == 1):
+		button.disabled = false
+		button.visible = true
 	button.set_position(Vector2(-456,-156))
 	
 	_timer = Timer.new()
@@ -54,6 +57,8 @@ func loadPlayers():
 	var sprite
 	if Background.currentPlayers:
 		for npc in Background.currentPlayers.keys():
+			if npc in players.keys():
+				continue
 			if int(npc) == int(Background.currentColor):
 				continue
 			var NPC = preload("res://Game/player/NPC.tscn").instance()
@@ -145,7 +150,8 @@ func checkTurn():
 	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
 
 func checkPlayers():
-	pass
+	request = "check_players"
+	FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
@@ -155,6 +161,11 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	elif request == "change_position":
 		if response_code == 200:
 			changeMap(last_position)
+	elif request == "updateGameData":
+		if response_code == 200:
+			gameStarted = true
+			button.visible = false
+			button.disabled = true
 	
 
 
@@ -168,16 +179,25 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 	elif request == "get_players":
 		if response_code == 200:
-			response_body = JSON.parse(body.get_string_from_ascii())
 			var players = {}
 			for player in response_body.result.documents:
 				var player_pos = [player.fields.position.arrayValue.values[0].integerValue,player.fields.position.arrayValue.values[1].integerValue]
 				players[player.fields.color.integerValue] = player_pos
 			Background.currentPlayers = players
 			movePlayers()
-
+	elif request == "check_players":
+		if response_code == 200:
+			if Background.currentPlayers.size() < response_body.result.documents.size():
+				var players = {}
+				for player in response_body.result.documents:
+					var player_pos = [player.fields.position.arrayValue.values[0].integerValue,player.fields.position.arrayValue.values[1].integerValue]
+					players[player.fields.color.integerValue] = player_pos
+					
+				Background.currentPlayers = players
+				loadPlayers()
 
 func _on_Button_pressed():
-	gameStarted = true
-	button.visible = false
-	button.disabled = true
+	Background.currentGameData["isGameStarted"]["booleanValue"] = true
+	Background.currentGameData["playerQuantity"]["integerValue"] = Background.currentPlayers.size()
+	request = "updateGameData"
+	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
