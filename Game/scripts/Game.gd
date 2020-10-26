@@ -207,11 +207,11 @@ func checkWinner():
 			winner.append(i)
 	if int(Background.currentColor) in winner:
 		if winner == 1:
-			print("ganador")
+			$WinnerLabel.visible = true
 		else:
-			print("empate")
+			$TieLabel.visible = true
 	else:
-		print("perdedor")
+		$LoserLabel.visible = true
 		
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
