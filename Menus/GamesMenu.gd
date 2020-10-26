@@ -107,6 +107,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			request = "Game_Started"
 			Background.currentColor = 1
+			Background.currentPlayers = {}
 			Background.currentGameCode = my_random_number
 			get_tree().change_scene("res://Game/scenes/Game.tscn")
 	#print("HOLAAA ", " ", response_code, " ", request)

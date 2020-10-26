@@ -226,7 +226,7 @@ func checkWinner():
 			print("GANADOR")
 			player.showWinner()
 			FireBase.profile.stats.Matches_Won.integerValue = int(FireBase.profile.stats.Matches_Won.integerValue) + 1
-			FireBase.profile.stats[Background.winColors[int(Background.currentColor)]].integerValue = int(FireBase.profile.stats[Background.winColors[int(Background.currentColor)]].integerValue) + 1
+			FireBase.profile.stats[Background.winColors[int(Background.currentColor) - 1]].integerValue = int(FireBase.profile.stats[Background.winColors[int(Background.currentColor) - 1]].integerValue) + 1
 		else:
 			print("EMPATE")
 			player.showTie()
@@ -235,7 +235,7 @@ func checkWinner():
 		print("PERDEDOR")
 		player.showLoser()
 		FireBase.profile.stats.Matches_Lost.integerValue = int(FireBase.profile.stats.Matches_Lost.integerValue) + 1
-	FireBase.profile.stats.Cells_Painted.integerValue = int(FireBase.profile.stats.Cells_Painted.integerValue) + int(Background.currentPlayerData["movements"]["integerValue"])
+	FireBase.profile.stats.Cells_Painted.integerValue = int(FireBase.profile.stats.Cells_Painted.integerValue) + int(Background.currentPlayerData["movements"]["integerValue"]) + 1
 	if int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) > int(FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue):
 		FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue = Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]
 	_timer.disconnect("timeout", self, "_on_Timer_timeout")
