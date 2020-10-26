@@ -185,7 +185,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				print(response_body.result.fields.isGameStarted.booleanValue)
 				Background.currentGameData["isGameStarted"]["booleanValue"] = true
 				gameStarted = true
-	
+
 
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
