@@ -1,0 +1,221 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/PlayerStats.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://arrow-back.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 23
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 23
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="PlayerStats" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_top = 1.12247
+margin_right = 1022.0
+margin_bottom = 575.122
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="UI"]
+margin_left = 240.0
+margin_top = 40.0
+margin_right = 792.0
+margin_bottom = 143.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
+text = "Player"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+margin_left = 64.0
+margin_top = 176.0
+margin_right = 952.0
+margin_bottom = 512.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_right = 888.0
+margin_bottom = 29.0
+
+[node name="StaticAvgPaint_Match" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+margin_right = 415.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Average Painted Cells per Match: "
+
+[node name="AvgPaint_Match_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
+margin_left = 419.0
+margin_right = 419.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 33.0
+margin_right = 888.0
+margin_bottom = 62.0
+
+[node name="StaticTotal_Cells_Painted" type="Label" parent="UI/VBoxContainer/HBoxContainer2"]
+margin_right = 243.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Cells Painted: "
+
+[node name="Total_Cells_painted_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer2"]
+margin_left = 247.0
+margin_right = 247.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 66.0
+margin_right = 888.0
+margin_bottom = 95.0
+
+[node name="StaticMatches_Lost" type="Label" parent="UI/VBoxContainer/HBoxContainer3"]
+margin_right = 245.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Matches Lost: "
+
+[node name="Matches_Lost_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer3"]
+margin_left = 249.0
+margin_right = 249.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 99.0
+margin_right = 888.0
+margin_bottom = 128.0
+
+[node name="StaticMatches_Won" type="Label" parent="UI/VBoxContainer/HBoxContainer4"]
+margin_right = 251.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Matches Won: "
+
+[node name="Matches_Won_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer4"]
+margin_left = 255.0
+margin_right = 255.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 132.0
+margin_right = 888.0
+margin_bottom = 161.0
+
+[node name="StaticMatches_Tied" type="Label" parent="UI/VBoxContainer/HBoxContainer5"]
+margin_right = 246.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Matches Tied: "
+
+[node name="Matches_Tied_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer5"]
+margin_left = 250.0
+margin_right = 250.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 165.0
+margin_right = 888.0
+margin_bottom = 194.0
+
+[node name="StaticMax_Painting_In_A_Match" type="Label" parent="UI/VBoxContainer/HBoxContainer6"]
+margin_right = 437.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Maximum Cells Painted in a Match: "
+
+[node name="Max_Painting_In_A_Match_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer6"]
+margin_left = 441.0
+margin_right = 441.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 198.0
+margin_right = 888.0
+margin_bottom = 227.0
+
+[node name="Static_Best_Color" type="Label" parent="UI/VBoxContainer/HBoxContainer7"]
+margin_right = 335.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Color With The Most Wins: "
+
+[node name="Best_Color_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer7"]
+margin_left = 339.0
+margin_right = 339.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="notification" type="Label" parent="UI"]
+margin_left = 8.0
+margin_top = 464.0
+margin_right = 360.0
+margin_bottom = 560.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackButton" type="TextureButton" parent="UI"]
+margin_left = 64.0
+margin_top = 40.0
+margin_right = 149.0
+margin_bottom = 126.0
+texture_normal = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[connection signal="pressed" from="UI/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

@@ -44,8 +44,7 @@ func register(email: String, password: String, http: HTTPRequest) -> void:
 		"Wins_With_Green": {"integerValue": 0},
 		"Wins_With_Yellow": {"integerValue": 0},
 		"Wins_With_Orange": {"integerValue": 0},
-		"Maximum_Painted_Cells_In_Match": {"integerValue": 0},
-		"Avg_Painted_Cells_Per_Match": {"integerValue": 0}
+		"Maximum_Painted_Cells_In_Match": {"integerValue": 0}
 	}
 	if result[1] == 200:
 		user_info = _get_user_info(result)
