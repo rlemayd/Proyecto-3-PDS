@@ -225,8 +225,8 @@ func checkWinner():
 		if winner.size() == 1:
 			print("GANADOR")
 			player.showWinner()
-			FireBase.profile.stats.Matches_won.integerValue = int(FireBase.profile.stats.Matches_won.integerValue) + 1
-			FireBase.profile.stats[Background.winColors[Background.currentColor]].integerValue = int(FireBase.profile.stats[Background.winColors[Background.currentColor]].integerValue) + 1
+			FireBase.profile.stats.Matches_Won.integerValue = int(FireBase.profile.stats.Matches_Won.integerValue) + 1
+			FireBase.profile.stats[Background.winColors[int(Background.currentColor)]].integerValue = int(FireBase.profile.stats[Background.winColors[int(Background.currentColor)]].integerValue) + 1
 		else:
 			print("EMPATE")
 			player.showTie()
@@ -295,7 +295,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())
-	if Background.currentPlayers.size() > 2:
+	if Background.currentPlayers.size() >= 1:
 		Background.currentGameData["isGameStarted"]["booleanValue"] = true
 		Background.currentGameData["playerQuantity"]["integerValue"] = Background.currentPlayers.size()
 		request = "updateGameData"
