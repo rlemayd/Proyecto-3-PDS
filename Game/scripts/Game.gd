@@ -195,9 +195,20 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 					
 				Background.currentPlayers = players
 				loadPlayers()
+				if int(Background.currentColor) != 1:
+					checkIfGameHasStarted()
+	elif request == "checkStateGame":
+		if response_code == 200:
+			if response_body.result.fields.isGameStarted.booleanValue:
+				Background.currentGameData["isGameStarted"]["booleanValue"] = true
+				gameStarted = true
 
 func _on_Button_pressed():
 	Background.currentGameData["isGameStarted"]["booleanValue"] = true
 	Background.currentGameData["playerQuantity"]["integerValue"] = Background.currentPlayers.size()
 	request = "updateGameData"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
+	
+func checkIfGameHasStarted():
+	request = "checkStateGame"
+	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
