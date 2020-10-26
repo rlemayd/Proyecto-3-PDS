@@ -26,7 +26,7 @@ var pastColor = 0
 var _timer = null
 var _timer2 = null
 
-var colors = [ColorN("darkgreen",1),ColorN("blue",1),ColorN("red",1),ColorN("yellow",1),ColorN("orange",1)]
+var colors = [ColorN("darkgreen",1),ColorN("blue",1),ColorN("darkred",1),ColorN("yellow",1),ColorN("orange",1)]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -160,7 +160,7 @@ func changePosition(position:Vector2):
 	
 func endTurn():
 	Background.currentGameData["currentTurn"]["integerValue"] = (int(Background.currentGameData["currentTurn"]["integerValue"]) % int(Background.currentGameData["playerQuantity"]["integerValue"])) + 1
-	
+	changeBackgroundColor()
 	pastColor = Background.currentMap[String(last_position.x)]["mapValue"]["fields"][String(last_position.y)]["mapValue"]["fields"]["color"]["integerValue"]
 	Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) + 1
 	Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"]) - 1
@@ -241,7 +241,7 @@ func _on_Timer2_timeout():
 func deleteGame():
 	Background.currentGames.erase(String(Background.currentGameCode))
 	request2 = "delete_game"
-	FireBase.update_document("MyGames/%s" % FireBase.profile.email, Background.currentGames, http)
+	FireBase.update_document("MyGames/%s" % FireBase.profile.email, Background.currentGames, http2)
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
