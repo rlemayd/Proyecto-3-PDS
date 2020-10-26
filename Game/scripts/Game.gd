@@ -200,6 +200,10 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	elif request == "finish_game":
 		if response_code == 200:
 			checkWinner()
+	elif request == "update_stats":
+		if response_code == 200:
+			print("stats_updated")
+			get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
 func finishGame():
 	Background.currentGameData["isGameFinished"]["booleanValue"] = true
@@ -220,12 +224,19 @@ func checkWinner():
 		if winner.size() == 1:
 			print("GANADOR")
 			player.showWinner()
+			FireBase.profile.stats.Matches_won.integerValue = int(FireBase.profile.stats.Matches_won.integerValue) + 1
+			FireBase.profile.stats[Background.winColors[Background.currentColor]].integerValue = int(FireBase.profile.stats[Background.winColors[Background.currentColor]].integerValue) + 1
 		else:
 			print("EMPATE")
 			player.showTie()
+			FireBase.profile.stats.Matches_Tied.integerValue = int(FireBase.profile.stats.Matches_Tied.integerValue) + 1
 	else:
 		print("PERDEDOR")
 		player.showLoser()
+		FireBase.profile.stats.Matches_Lost.integerValue = int(FireBase.profile.stats.Matches_Lost.integerValue) + 1
+		
+	if int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) > int(FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue):
+		FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue = Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]
 	_timer.disconnect("timeout", self, "_on_Timer_timeout")
 	_timer2 = Timer.new()
 	add_child(_timer2)
@@ -278,7 +289,8 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				checkIfGameHasStarted()
 	elif request2 == "delete_game":
 		if response_code == 200:
-			get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
+			request = "update_stats"
+			FireBase.update_document("users/%s" % FireBase.profile.email, FireBase.profile.stats, http)
 
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())

@@ -8,7 +8,9 @@ const LOGIN_URL := "https://www.googleapis.com/identitytoolkit/v3/relyingparty/v
 const FIRESTORE_URL := "https://firestore.googleapis.com/v1/projects/%s/databases/(default)/documents/" % PROJECT_ID
 
 var user_info := {}
-var profile := {"email": {}}
+var profile := {"email": {},
+				"stats":{}
+				}
 
 
 func _get_user_info(result: Array) -> Dictionary:
@@ -43,7 +45,6 @@ func register(email: String, password: String, http: HTTPRequest) -> void:
 		"Wins_With_Yellow": {"integerValue": 0},
 		"Wins_With_Orange": {"integerValue": 0},
 		"Maximum_Painted_Cells_In_Match": {"integerValue": 0},
-		"Color_Wins": {"integerValue": 0},
 		"Avg_Painted_Cells_Per_Match": {"integerValue": 0}
 	}
 	if result[1] == 200:
@@ -61,6 +62,7 @@ func login(email: String, password: String, http: HTTPRequest) -> void:
 	if result[1] == 200:
 		profile.email = email
 		user_info = _get_user_info(result)
+	
 
 
 func save_document(path: String, fields: Dictionary, http: HTTPRequest) -> void:

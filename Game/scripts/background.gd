@@ -11,6 +11,7 @@ var currentGameData = {}
 var currentGames = {}
 
 var cellColors = ["whiteCells","greenCells","blueCells","redCells","yellowCells","orangeCells"]
+var winColors = ["Wins_With_Green","Wins_With_Blue","Wins_With_Red","Wins_With_Yellow","Wins_With_Orange"]
 var positions = [[1,5],[5,1],[5,5],[3,3]]
 
 
