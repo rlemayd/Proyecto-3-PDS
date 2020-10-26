@@ -43,6 +43,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	if gameStarted:
+		print(Background.currentColor)
 		checkTurn()
 	else:
 		checkPlayers()
@@ -166,11 +167,18 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			gameStarted = true
 			button.visible = false
 			button.disabled = true
+	elif request == "checkStateGame":
+		if response_code == 200:
+			if response_body.result.fields.isGameStarted.booleanValue:
+				print(response_body.result.fields.isGameStarted.booleanValue)
+				Background.currentGameData["isGameStarted"]["booleanValue"] = true
+				gameStarted = true
 	
 
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
+	print(request)
 	if request == "check_turn":
 		if response_code == 200:
 			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
@@ -188,6 +196,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	elif request == "check_players":
 		if response_code == 200:
 			if Background.currentPlayers.size() < response_body.result.documents.size():
+				print(response_code)
 				var players = {}
 				for player in response_body.result.documents:
 					var player_pos = [player.fields.position.arrayValue.values[0].integerValue,player.fields.position.arrayValue.values[1].integerValue]
@@ -195,13 +204,8 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 					
 				Background.currentPlayers = players
 				loadPlayers()
-				if int(Background.currentColor) != 1:
-					checkIfGameHasStarted()
-	elif request == "checkStateGame":
-		if response_code == 200:
-			if response_body.result.fields.isGameStarted.booleanValue:
-				Background.currentGameData["isGameStarted"]["booleanValue"] = true
-				gameStarted = true
+			if int(Background.currentColor) != 1:
+				checkIfGameHasStarted()
 
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())
@@ -213,4 +217,4 @@ func _on_Button_pressed():
 		
 func checkIfGameHasStarted():
 	request = "checkStateGame"
-	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
+	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http)
