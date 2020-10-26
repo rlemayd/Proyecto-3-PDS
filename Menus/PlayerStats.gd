@@ -9,7 +9,7 @@ onready var tot_wins = $UI/VBoxContainer/HBoxContainer4/Matches_Won_Label
 onready var tot_ties = $UI/VBoxContainer/HBoxContainer5/Matches_Tied_Label
 onready var max_cells_painted = $UI/VBoxContainer/HBoxContainer6/Max_Painting_In_A_Match_Label
 onready var color_with_more_wins = $UI/VBoxContainer/HBoxContainer7/Best_Color_Label
-
+onready var tot_matches = $UI/VBoxContainer/HBoxContainer8/Total_Matches_Label
 
 var request = ""
 
@@ -21,7 +21,7 @@ func _ready():
 
 
 func _on_BackButton_pressed():
-	get_tree().change_scene("res://Menus/FriendsMenu.tscn")
+	get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
@@ -33,6 +33,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			avg_label.text = String(int(stats.Cells_Painted.integerValue)/tot_games) + "%"
 		else:
 			avg_label.text = "N/A"
+		tot_matches.text = String(tot_games)
 		tot_cells.text = String(stats.Cells_Painted.integerValue)
 		tot_lost.text = String(stats.Matches_Lost.integerValue)
 		tot_wins.text = String(stats.Matches_Won.integerValue)

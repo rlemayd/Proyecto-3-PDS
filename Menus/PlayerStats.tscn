@@ -81,10 +81,29 @@ margin_bottom = 29.0
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer"]
+[node name="HBoxContainer8" type="HBoxContainer" parent="UI/VBoxContainer"]
 margin_top = 33.0
 margin_right = 888.0
 margin_bottom = 62.0
+
+[node name="Static_Total_Matches" type="Label" parent="UI/VBoxContainer/HBoxContainer8"]
+margin_right = 186.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Total Matches: "
+
+[node name="Total_Matches_Label" type="Label" parent="UI/VBoxContainer/HBoxContainer8"]
+margin_left = 190.0
+margin_right = 190.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 66.0
+margin_right = 888.0
+margin_bottom = 95.0
 
 [node name="StaticTotal_Cells_Painted" type="Label" parent="UI/VBoxContainer/HBoxContainer2"]
 margin_right = 243.0
@@ -101,9 +120,9 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 66.0
+margin_top = 99.0
 margin_right = 888.0
-margin_bottom = 95.0
+margin_bottom = 128.0
 
 [node name="StaticMatches_Lost" type="Label" parent="UI/VBoxContainer/HBoxContainer3"]
 margin_right = 245.0
@@ -120,9 +139,9 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 99.0
+margin_top = 132.0
 margin_right = 888.0
-margin_bottom = 128.0
+margin_bottom = 161.0
 
 [node name="StaticMatches_Won" type="Label" parent="UI/VBoxContainer/HBoxContainer4"]
 margin_right = 251.0
@@ -139,9 +158,9 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 132.0
+margin_top = 165.0
 margin_right = 888.0
-margin_bottom = 161.0
+margin_bottom = 194.0
 
 [node name="StaticMatches_Tied" type="Label" parent="UI/VBoxContainer/HBoxContainer5"]
 margin_right = 246.0
@@ -158,9 +177,9 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 165.0
+margin_top = 198.0
 margin_right = 888.0
-margin_bottom = 194.0
+margin_bottom = 227.0
 
 [node name="StaticMax_Painting_In_A_Match" type="Label" parent="UI/VBoxContainer/HBoxContainer6"]
 margin_right = 437.0
@@ -177,9 +196,9 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 198.0
+margin_top = 231.0
 margin_right = 888.0
-margin_bottom = 227.0
+margin_bottom = 260.0
 
 [node name="Static_Best_Color" type="Label" parent="UI/VBoxContainer/HBoxContainer7"]
 margin_right = 335.0

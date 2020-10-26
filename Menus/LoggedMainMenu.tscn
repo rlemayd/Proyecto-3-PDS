@@ -140,12 +140,31 @@ rect_min_size = Vector2( 0, 100 )
 [node name="ButtonText" parent="UI/VBoxContainer/ExitButton" index="0"]
 text = "Exit"
 
+[node name="StatsButton" parent="UI" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 632.0
+margin_top = 256.0
+margin_right = 936.0
+margin_bottom = 356.0
+rect_min_size = Vector2( 200, 100 )
+size_flags_vertical = 4
+texture_normal = ExtResource( 7 )
+
+[node name="ButtonText" parent="UI/StatsButton" index="0"]
+margin_left = 8.0
+margin_top = 29.0
+margin_right = 296.0
+margin_bottom = 67.0
+text = "View My Stats"
+
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 [connection signal="pressed" from="UI/HBoxContainer/NotificationsButton" to="." method="_on_NotificationsButton_pressed"]
 [connection signal="pressed" from="UI/HBoxContainer/AddFriendsButton" to="." method="_on_AddFriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/FriendsButton" to="." method="_on_FriendsButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/GamesButton" to="." method="_on_GamesButton_pressed"]
 [connection signal="pressed" from="UI/VBoxContainer/ExitButton" to="." method="_on_ExitButton_pressed"]
+[connection signal="pressed" from="UI/StatsButton" to="." method="_on_StatsButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 
 [editable path="UI/HBoxContainer/NotificationsButton"]
@@ -157,3 +176,5 @@ text = "Exit"
 [editable path="UI/VBoxContainer/GamesButton"]
 
 [editable path="UI/VBoxContainer/ExitButton"]
+
+[editable path="UI/StatsButton"]

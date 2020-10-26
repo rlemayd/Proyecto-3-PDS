@@ -34,3 +34,8 @@ func _on_GamesButton_pressed():
 	#Participants?documentId=%s" % FireBase.profile.email
 	get_tree().change_scene("res://Menus/GamesMenu.tscn")
 	#get_tree().change_scene("res://Game/scenes/Game.tscn")
+
+
+func _on_StatsButton_pressed():
+	Background.playerPressed = FireBase.profile.email
+	get_tree().change_scene("res://Menus/PlayerStats.tscn")
