@@ -9,7 +9,7 @@ var currentPlayerData = {}
 var currentGameData = {}
 
 
-enum {white,green,blue,red,yellow,orange}
+var cellColors = ["whiteCells","greenCells","blueCells","redCells","yellowCells","orangeCells"]
 var positions = [[1,5],[5,1],[5,5],[3,3]]
 
 

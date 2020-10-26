@@ -21,6 +21,7 @@ var request = ""
 var request2 = ""
 var last_position
 
+var pastColor = 0
 
 var _timer = null
 
@@ -82,7 +83,7 @@ func loadPlayers():
 					sprite.texture = orangePlayer
 			NPC.position = grid.map_to_world(Vector2(Background.currentPlayers[npc][0],Background.currentPlayers[npc][1]))
 			grid.set_cellv(grid.world_to_map(NPC.position), grid.tile_set.find_tile_by_name(String(npc)))
-			Background.currentMap[String(Background.currentPlayers[npc][0])]["mapValue"]["fields"][String(Background.currentPlayers[npc][1])]["mapValue"]["fields"]["color"]["integerValue"] = player
+			Background.currentMap[String(Background.currentPlayers[npc][0])]["mapValue"]["fields"][String(Background.currentPlayers[npc][1])]["mapValue"]["fields"]["color"]["integerValue"] = npc
 	
 func loadMyself():
 	var sprite
@@ -133,6 +134,7 @@ func checkPosition(position:Vector2):
 	return !Background.currentPlayers.values().has([String(position.x),String(position.y)])
 
 func changeMap(position:Vector2):
+	pastColor = Background.currentMap[String(position.x)]["mapValue"]["fields"][String(position.y)]["mapValue"]["fields"]["color"]["integerValue"]
 	Background.currentMap[String(position.x)]["mapValue"]["fields"][String(position.y)]["mapValue"]["fields"]["color"]["integerValue"] = Background.currentColor
 	request = "change_map"
 	FireBase.update_document("Games/%s/Map/Cells" % Background.currentGameCode, Background.currentMap, http)
@@ -145,6 +147,10 @@ func changePosition(position:Vector2):
 	
 func endTurn():
 	Background.currentGameData["currentTurn"]["integerValue"] = (int(Background.currentGameData["currentTurn"]["integerValue"]) % int(Background.currentGameData["playerQuantity"]["integerValue"])) + 1
+	Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"] += 1
+	Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"] -= 1
+	if Background.currentGameData[Background.cellColors[1]]["integerValue"] + Background.currentGameData[Background.cellColors[2]]["integerValue"]+ Background.currentGameData[Background.cellColors[3]]["integerValue"]+ Background.currentGameData[Background.cellColors[4]]["integerValue"]+ Background.currentGameData[Background.cellColors[5]]["integerValue"] == Background.currentGameData["totalCells"]["integerValue"]:
+		print("Juego terminado")
 	request = "end_turn"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
