@@ -85,6 +85,7 @@ func loadPlayers():
 			grid.set_cellv(grid.world_to_map(NPC.position), grid.tile_set.find_tile_by_name(String(npc)))
 			Background.currentMap[String(Background.currentPlayers[npc][0])]["mapValue"]["fields"][String(Background.currentPlayers[npc][1])]["mapValue"]["fields"]["color"]["integerValue"] = npc
 			Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"]) + 1
+			Background.currentGameData[Background.cellColors[0]]["integerValue"] = int(Background.currentGameData[Background.cellColors[0]]["integerValue"]) - 1
 	
 func loadMyself():
 	var sprite
