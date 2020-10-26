@@ -185,7 +185,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
-				request = "get_players"
+				request2 = "get_players"
 				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 	elif request2 == "get_players":
 		if response_code == 200:
