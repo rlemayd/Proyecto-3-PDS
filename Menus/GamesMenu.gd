@@ -14,7 +14,7 @@ func _ready():
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	# To set the games you're already playing
 	response_body = JSON.parse(body.get_string_from_ascii())
-	print(response_code, response_body.result, request)
+	#print(response_code, response_body.result, request)
 	if request == "get_all_current_games":
 		# If there are games
 		if response_code == 200:
@@ -37,7 +37,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		#Create the game with the participants first
 		var hour = OS.get_time()
 		var ghour = String(hour.hour) +":"+ String(hour.minute) +":"+ String(hour.second)
-		print(ghour)
+		
 		var fields = {
 			"color": {"integerValue": 1},
 			"position": {"arrayValue": {
