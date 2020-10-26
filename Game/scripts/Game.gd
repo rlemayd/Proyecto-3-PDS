@@ -18,8 +18,9 @@ var players = {}
 var gameStarted = Background.currentGameData["isGameStarted"]["booleanValue"]
 
 var request = ""
+var request2 = ""
 var last_position
-var response_body = {}
+
 
 var _timer = null
 
@@ -147,15 +148,16 @@ func endTurn():
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
 func checkTurn():
-	request = "check_turn"
+	request2 = "check_turn"
 	FireBase.get_document("Games/%s/Map/Info" % Background.currentGameCode, http2)
 
 func checkPlayers():
-	request = "check_players"
+	request2 = "check_players"
 	FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
+	print(request, response_code)
 	if request == "end_turn":
 		if response_code == 200:
 			changePosition(last_position)
@@ -178,14 +180,14 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
-	print(request)
-	if request == "check_turn":
+	print(request2)
+	if request2 == "check_turn":
 		if response_code == 200:
 			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
 				request = "get_players"
 				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
-	elif request == "get_players":
+	elif request2 == "get_players":
 		if response_code == 200:
 			var players = {}
 			for player in response_body.result.documents:
@@ -193,7 +195,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				players[player.fields.color.integerValue] = player_pos
 			Background.currentPlayers = players
 			movePlayers()
-	elif request == "check_players":
+	elif request2 == "check_players":
 		if response_code == 200:
 			if Background.currentPlayers.size() < response_body.result.documents.size():
 				print(response_code)
