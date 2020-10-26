@@ -296,6 +296,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())
 	if Background.currentPlayers.size() >= 1:
+		player.hideLabel()
 		Background.currentGameData["isGameStarted"]["booleanValue"] = true
 		Background.currentGameData["playerQuantity"]["integerValue"] = Background.currentPlayers.size()
 		request = "updateGameData"
