@@ -153,7 +153,7 @@ func endTurn():
 	Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) + 1
 	Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"]) - 1
 	if int(Background.currentGameData[Background.cellColors[0]]["integerValue"]) == 0:
-		print("Partida terminada")
+		finishGame()
 	request = "end_turn"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
@@ -185,15 +185,25 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				print(response_body.result.fields.isGameStarted.booleanValue)
 				Background.currentGameData["isGameStarted"]["booleanValue"] = true
 				gameStarted = true
+	elif request == "finish_game":
+		if response_code == 200:
+			#TEMRINO EL JUEGO TODO: PONER SI GANASTE O PERDISTE
+			get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
-
+func finishGame():
+	Background.currentGameData["isGameFinished"]["booleanValue"] = true
+	request = "finish_game"
+	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
 	print(request2)
 	if request2 == "check_turn":
 		if response_code == 200:
-			if int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
+			if response_body.result.fields.isGameFinished.booleanValue:
+				#TEMRINO EL JUEGO TODO: PONER SI GANASTE O PERDISTE
+				get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
+			elif int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
 				request2 = "get_players"
 				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)

@@ -8,6 +8,7 @@ var currentGameCode = 0
 var currentPlayerData = {}
 var currentGameData = {}
 
+var currentGames = {}
 
 var cellColors = ["whiteCells","greenCells","blueCells","redCells","yellowCells","orangeCells"]
 var positions = [[1,5],[5,1],[5,5],[3,3]]

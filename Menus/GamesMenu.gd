@@ -19,6 +19,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# If there are games
 		if response_code == 200:
 			if(response_body.result.has("fields")):
+				Background.currentGames = response_body.result.fields
 				#print(response_body.result.fields)
 				for item in response_body.result.fields:
 					ReciclerView.addItem(String(item))
@@ -75,7 +76,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					"orangeCells": {"integerValue": 0},
 					"currentTurn": {"integerValue": 1},
 					"playerQuantity": {"integerValue": 5},
-					"isGameStarted": {"booleanValue": false}
+					"isGameStarted": {"booleanValue": false},
+					"isGameFinished": {"booleanValue": false}
 				}
 			Background.currentGameData = fields
 			request = "Set_User_In_Game_DB"
