@@ -82,7 +82,7 @@ func loadPlayers():
 					sprite.texture = orangePlayer
 			NPC.position = grid.map_to_world(Vector2(Background.currentPlayers[npc][0],Background.currentPlayers[npc][1]))
 			grid.set_cellv(grid.world_to_map(NPC.position), grid.tile_set.find_tile_by_name(String(npc)))
-			
+			Background.currentMap[String(Background.currentPlayers[npc][0])]["mapValue"]["fields"][String(Background.currentPlayers[npc][1])]["mapValue"]["fields"]["color"]["integerValue"] = player
 	
 func loadMyself():
 	var sprite
@@ -113,7 +113,7 @@ func movePlayers():
 		if player in players.keys():
 			players[player].position = grid.map_to_world(Vector2(Background.currentPlayers[player][0],Background.currentPlayers[player][1]))
 			grid.set_cellv(grid.world_to_map(players[player].position), grid.tile_set.find_tile_by_name(String(player)))
-			Background.currentMap[String(Background.currentPlayers[player][0])]["mapValue"]["fields"][String(Background.currentPlayers[player][1])]["mapValue"]["fields"]["color"]["integerValue"] = Background.currentColor
+			Background.currentMap[String(Background.currentPlayers[player][0])]["mapValue"]["fields"][String(Background.currentPlayers[player][1])]["mapValue"]["fields"]["color"]["integerValue"] = player
 
 func _input(event):
 	if int(Background.currentGameData["currentTurn"]["integerValue"]) == int(Background.currentColor) and gameStarted:
