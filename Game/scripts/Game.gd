@@ -152,8 +152,8 @@ func endTurn():
 	pastColor = Background.currentMap[String(last_position.x)]["mapValue"]["fields"][String(last_position.y)]["mapValue"]["fields"]["color"]["integerValue"]
 	Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) + 1
 	Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(pastColor)]]["integerValue"]) - 1
-	print(int(Background.currentGameData[Background.cellColors[1]]["integerValue"]) + int(Background.currentGameData[Background.cellColors[2]]["integerValue"]) + int(Background.currentGameData[Background.cellColors[3]]["integerValue"]) + int(Background.currentGameData[Background.cellColors[4]]["integerValue"]) + int(Background.currentGameData[Background.cellColors[5]]["integerValue"]) == int(Background.currentGameData["totalCells"]["integerValue"]))
-	
+	if int(Background.currentGameData[Background.cellColors[0]]["integerValue"]) == 0:
+		print("Partida terminada")
 	request = "end_turn"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
@@ -221,7 +221,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())
-	if Background.currentPlayers.size() > 1:
+	if Background.currentPlayers.size() > 2:
 		Background.currentGameData["isGameStarted"]["booleanValue"] = true
 		Background.currentGameData["playerQuantity"]["integerValue"] = Background.currentPlayers.size()
 		request = "updateGameData"
