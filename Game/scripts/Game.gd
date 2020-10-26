@@ -188,7 +188,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				gameStarted = true
 	elif request == "finish_game":
 		if response_code == 200:
-			#TEMRINO EL JUEGO TODO: PONER SI GANASTE O PERDISTE
 			checkWinner()
 
 func finishGame():
@@ -206,7 +205,7 @@ func checkWinner():
 		elif int(Background.currentGameData[Background.cellColors[i]]["integerValue"]) == maxValue:
 			winner.append(i)
 	if int(Background.currentColor) in winner:
-		if winner == 1:
+		if winner.size() == 1:
 			print("GANADOR")
 			player.showWinner()
 		else:
@@ -215,9 +214,10 @@ func checkWinner():
 	else:
 		print("PERDEDOR")
 		player.showLoser()
+	_timer.disconnect("timeout", self, "_on_Timer_timeout")
 	_timer2 = Timer.new()
 	add_child(_timer2)
-	_timer2.connect("timeout2", self, "_on_Timer2_timeout")
+	_timer2.connect("timeout", self, "_on_Timer2_timeout")
 	_timer2.set_wait_time(5.0)
 	_timer2.set_one_shot(true)
 	_timer2.start()
@@ -231,8 +231,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	if request2 == "check_turn":
 		if response_code == 200:
 			if response_body.result.fields.isGameFinished.booleanValue:
-				#TEMRINO EL JUEGO TODO: PONER SI GANASTE O PERDISTE
-				get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
+				checkWinner()
 			elif int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
 				request2 = "get_players"
