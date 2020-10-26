@@ -208,13 +208,13 @@ func checkWinner():
 	if int(Background.currentColor) in winner:
 		if winner == 1:
 			print("GANADOR")
-			$WinnerLabel.visible = true
+			player.showWinner()
 		else:
 			print("EMPATE")
-			$TieLabel.visible = true
+			player.showTie()
 	else:
 		print("PERDEDOR")
-		$LoserLabel.visible = true
+		player.showLoser()
 	_timer2 = Timer.new()
 	add_child(_timer2)
 	_timer2.connect("timeout2", self, "_on_Timer2_timeout")

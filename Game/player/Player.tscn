@@ -1,14 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/Elements/Buttons/Textures/ButtonTextureRed.png" type="Texture" id=2]
 [ext_resource path="res://Game/player/Player.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/Bukhari Script.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 size = 40
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 100
+font_data = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -40,6 +45,42 @@ custom_fonts/font = SubResource( 2 )
 text = "Exit"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WinnerLabel" type="Label" parent="."]
+visible = false
+margin_left = -208.0
+margin_top = -72.0
+margin_right = 208.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 3 )
+text = "You win!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoserLabel" type="Label" parent="."]
+visible = false
+margin_left = -248.0
+margin_top = -72.0
+margin_right = 243.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 3 )
+text = "You Lose!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TieLabel" type="Label" parent="."]
+visible = false
+margin_left = -104.0
+margin_top = -72.0
+margin_right = 104.0
+margin_bottom = 56.0
+custom_fonts/font = SubResource( 3 )
+text = "Tie!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
