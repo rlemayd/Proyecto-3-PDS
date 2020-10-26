@@ -26,11 +26,15 @@ var pastColor = 0
 var _timer = null
 var _timer2 = null
 
+var colors = [ColorN("darkgreen ",1),ColorN("blue",1),ColorN("red",1),ColorN("yellow",1),ColorN("orange",1)]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	loadMap()
 	loadPlayers()
 	loadMyself()
+	
+	changeBackgroundColor()
 	
 	if(int(Background.currentColor) == 1 and !gameStarted):
 		button.disabled = false
@@ -50,6 +54,9 @@ func _on_Timer_timeout():
 		checkTurn()
 	else:
 		checkPlayers()
+
+func changeBackgroundColor():
+	VisualServer.set_default_clear_color(colors[int(Background.currentGameData.currentTurn.integerValue)-1])
 
 func loadMap():
 	for i in Background.currentMap.keys():
@@ -192,6 +199,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 
 func finishGame():
 	Background.currentGameData["isGameFinished"]["booleanValue"] = true
+	Background.currentGameData["currentTurn"]["integerValue"] = -1
 	request = "finish_game"
 	FireBase.update_document("Games/%s/Map/Info" % Background.currentGameCode, Background.currentGameData, http)
 	
@@ -223,7 +231,13 @@ func checkWinner():
 	_timer2.start()
 
 func _on_Timer2_timeout():
-	get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
+	deleteGame()
+	
+	
+func deleteGame():
+	Background.currentGames.erase(String(Background.currentGameCode))
+	request2 = "delete_game"
+	FireBase.update_document("MyGames/%s" % FireBase.profile.email, Background.currentGames, http)
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
@@ -234,6 +248,7 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				checkWinner()
 			elif int(response_body.result.fields.currentTurn.integerValue) != int(Background.currentGameData["currentTurn"]["integerValue"]):
 				Background.currentGameData = response_body.result.fields
+				changeBackgroundColor()
 				request2 = "get_players"
 				FireBase.get_document("Games/%s/Participants" % Background.currentGameCode, http2)
 	elif request2 == "get_players":
@@ -257,6 +272,9 @@ func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 				loadPlayers()
 			if int(Background.currentColor) != 1:
 				checkIfGameHasStarted()
+	elif request2 == "delete_game":
+		if response_code == 200:
+			get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
 func _on_Button_pressed():
 	print(Background.currentPlayers.size())
