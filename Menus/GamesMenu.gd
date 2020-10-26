@@ -68,7 +68,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			var fields = {
 					"totalCells": {"integerValue": 25},
 					"whiteCells": {"integerValue": 25},
-					"greenCells": {"integerValue": 0},
+					"greenCells": {"integerValue": 1},
 					"blueCells": {"integerValue": 0},
 					"redCells": {"integerValue": 0},
 					"yellowCells": {"integerValue": 0},
