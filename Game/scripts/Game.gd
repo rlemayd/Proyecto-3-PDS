@@ -24,6 +24,7 @@ var last_position
 var pastColor = 0
 
 var _timer = null
+var _timer2 = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -189,7 +190,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if response_code == 200:
 			#TEMRINO EL JUEGO TODO: PONER SI GANASTE O PERDISTE
 			checkWinner()
-			get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
 func finishGame():
 	Background.currentGameData["isGameFinished"]["booleanValue"] = true
@@ -207,12 +207,23 @@ func checkWinner():
 			winner.append(i)
 	if int(Background.currentColor) in winner:
 		if winner == 1:
+			print("GANADOR")
 			$WinnerLabel.visible = true
 		else:
+			print("EMPATE")
 			$TieLabel.visible = true
 	else:
+		print("PERDEDOR")
 		$LoserLabel.visible = true
-		
+	_timer2 = Timer.new()
+	add_child(_timer2)
+	_timer2.connect("timeout2", self, "_on_Timer2_timeout")
+	_timer2.set_wait_time(5.0)
+	_timer2.set_one_shot(true)
+	_timer2.start()
+
+func _on_Timer2_timeout():
+	get_tree().change_scene("res://Menus/LoggedMainMenu.tscn")
 
 func _on_HTTPRequest2_request_completed(result, response_code, headers, body):
 	var response_body = JSON.parse(body.get_string_from_ascii())
