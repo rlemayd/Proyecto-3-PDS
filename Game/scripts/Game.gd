@@ -113,6 +113,7 @@ func movePlayers():
 		if player in players.keys():
 			players[player].position = grid.map_to_world(Vector2(Background.currentPlayers[player][0],Background.currentPlayers[player][1]))
 			grid.set_cellv(grid.world_to_map(players[player].position), grid.tile_set.find_tile_by_name(String(player)))
+			Background.currentMap[String(Background.currentPlayers[player][0])]["mapValue"]["fields"][String(Background.currentPlayers[player][1])]["mapValue"]["fields"]["color"]["integerValue"] = Background.currentColor
 
 func _input(event):
 	if int(Background.currentGameData["currentTurn"]["integerValue"]) == int(Background.currentColor) and gameStarted:
