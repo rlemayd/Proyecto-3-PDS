@@ -26,12 +26,15 @@ var pastColor = 0
 var _timer = null
 var _timer2 = null
 
-var colors = [ColorN("darkgreen ",1),ColorN("blue",1),ColorN("red",1),ColorN("yellow",1),ColorN("orange",1)]
+var colors = [ColorN("darkgreen",1),ColorN("blue",1),ColorN("red",1),ColorN("yellow",1),ColorN("orange",1)]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	loadMap()
-	loadPlayers()
+	if gameStarted:
+		loadPlayers("started")
+	else:
+		loadPlayers()
 	loadMyself()
 	
 	changeBackgroundColor()
@@ -64,7 +67,7 @@ func loadMap():
 			var color = Background.currentMap[i]["mapValue"]["fields"][j]["mapValue"]["fields"]["color"].values()[0]
 			grid.set_cell(int(i),int(j),grid.tile_set.find_tile_by_name(String(color)))
 
-func loadPlayers():
+func loadPlayers(flag = ""):
 	var sprite
 	if Background.currentPlayers:
 		for npc in Background.currentPlayers.keys():
@@ -92,8 +95,9 @@ func loadPlayers():
 			NPC.position = grid.map_to_world(Vector2(Background.currentPlayers[npc][0],Background.currentPlayers[npc][1]))
 			grid.set_cellv(grid.world_to_map(NPC.position), grid.tile_set.find_tile_by_name(String(npc)))
 			Background.currentMap[String(Background.currentPlayers[npc][0])]["mapValue"]["fields"][String(Background.currentPlayers[npc][1])]["mapValue"]["fields"]["color"]["integerValue"] = npc
-			Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"]) + 1
-			Background.currentGameData[Background.cellColors[0]]["integerValue"] = int(Background.currentGameData[Background.cellColors[0]]["integerValue"]) - 1
+			if flag == "":
+				Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"] = int(Background.currentGameData[Background.cellColors[int(npc)]]["integerValue"]) + 1
+				Background.currentGameData[Background.cellColors[0]]["integerValue"] = int(Background.currentGameData[Background.cellColors[0]]["integerValue"]) - 1
 	
 func loadMyself():
 	var sprite
