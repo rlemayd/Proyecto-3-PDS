@@ -155,6 +155,7 @@ func changeMap(position:Vector2):
 func changePosition(position:Vector2):
 	Background.currentPlayerData["position"]["arrayValue"]["values"][0]["integerValue"] = position.x
 	Background.currentPlayerData["position"]["arrayValue"]["values"][1]["integerValue"] = position.y
+	Background.currentPlayerData["movements"]["integerValue"] = int(Background.currentPlayerData["movements"]["integerValue"]) + 1
 	request = "change_position"
 	FireBase.update_document("Games/%s/Participants/%s" % [Background.currentGameCode, FireBase.profile.email], Background.currentPlayerData, http)
 	
@@ -234,7 +235,7 @@ func checkWinner():
 		print("PERDEDOR")
 		player.showLoser()
 		FireBase.profile.stats.Matches_Lost.integerValue = int(FireBase.profile.stats.Matches_Lost.integerValue) + 1
-		
+	FireBase.profile.stats.Cells_Painted.integerValue = int(FireBase.profile.stats.Cells_Painted.integerValue) + int(Background.currentPlayerData["movements"]["integerValue"])
 	if int(Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]) > int(FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue):
 		FireBase.profile.stats.Maximum_Painted_Cells_In_Match.integerValue = Background.currentGameData[Background.cellColors[int(Background.currentColor)]]["integerValue"]
 	_timer.disconnect("timeout", self, "_on_Timer_timeout")

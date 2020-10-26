@@ -51,7 +51,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					}
 				  ]
 				}
-			}
+			},
+			"movements": {"integerValue": 0} 
 		}
 		Background.currentPosition = Vector2(1,1)
 		Background.currentPlayerData = fields
