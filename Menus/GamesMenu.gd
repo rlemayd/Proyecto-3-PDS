@@ -6,6 +6,7 @@ var request = ""
 var rng = RandomNumberGenerator.new()
 var my_random_number = 0
 var response_body = {}
+var map_dim = 0
 
 func _ready():
 	request = "get_all_current_games"
@@ -62,14 +63,14 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		# Create the map in the db
 		if response_code == 200:
 			request = "Set_Variables_Of_Game"
-			
-			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], Background.getMap(), http)
+			map_dim = (randi() % (5 - 2) + 2) * 2 + 1
+			FireBase.save_document("Games/%s/Map?documentId=%s" % [my_random_number, "Cells"], Background.getMap(map_dim), http)
 	elif request == "Set_Variables_Of_Game":
 		#Set the variables of the game
 		if response_code == 200:
 			var fields = {
-					"totalCells": {"integerValue": 25},
-					"whiteCells": {"integerValue": 24},
+					"totalCells": {"integerValue": map_dim * map_dim},
+					"whiteCells": {"integerValue": map_dim * map_dim - 1},
 					"greenCells": {"integerValue": 1},
 					"blueCells": {"integerValue": 0},
 					"redCells": {"integerValue": 0},
@@ -78,7 +79,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 					"currentTurn": {"integerValue": 1},
 					"playerQuantity": {"integerValue": 5},
 					"isGameStarted": {"booleanValue": false},
-					"isGameFinished": {"booleanValue": false}
+					"isGameFinished": {"booleanValue": false},
+					"mapDim": {"integerValue": map_dim}
 				}
 			Background.currentGameData = fields
 			request = "Set_User_In_Game_DB"

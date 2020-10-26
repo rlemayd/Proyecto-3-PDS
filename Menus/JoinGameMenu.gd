@@ -52,6 +52,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 				request = "save_me_as_participant"
 				var myColor = response_body.result.documents.size()+1
 				Background.currentColor = myColor
+				Background.generate_pos()
 				var dict = {
 					"color": {
 						"integerValue": myColor
