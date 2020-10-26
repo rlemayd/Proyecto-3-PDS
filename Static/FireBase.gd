@@ -32,10 +32,23 @@ func register(email: String, password: String, http: HTTPRequest) -> void:
 	}
 	http.request(REGISTER_URL, [], false, HTTPClient.METHOD_POST, to_json(body))
 	var result := yield(http, "request_completed") as Array
+	var fields = {
+		"Matches_Won": {"integerValue": 0},
+		"Matches_Lost": {"integerValue": 0},
+		"Matches_Tied": {"integerValue": 0},
+		"Cells_Painted": {"integerValue": 0},
+		"Wins_With_Red": {"integerValue": 0},
+		"Wins_With_Blue": {"integerValue": 0},
+		"Wins_With_Green": {"integerValue": 0},
+		"Wins_With_Yellow": {"integerValue": 0},
+		"Wins_With_Orange": {"integerValue": 0},
+		"Maximum_Painted_Cells_In_Match": {"integerValue": 0},
+		"Color_Wins": {"integerValue": 0},
+		"Avg_Painted_Cells_Per_Match": {"integerValue": 0}
+	}
 	if result[1] == 200:
 		user_info = _get_user_info(result)
-		save_document("users?documentId=%s" % email, {}, http)
-
+		save_document("users?documentId=%s" % email, fields, http)
 
 func login(email: String, password: String, http: HTTPRequest) -> void:
 	var body := {
