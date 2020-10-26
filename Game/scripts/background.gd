@@ -18,7 +18,7 @@ var cellColors = ["whiteCells","greenCells","blueCells","redCells","yellowCells"
 var winColors = ["Wins_With_Green","Wins_With_Blue","Wins_With_Red","Wins_With_Yellow","Wins_With_Orange"]
 
 func generate_pos():
-	positions = [[1,int(currentGameData["mapDim"]["integerValue"])],[int(currentGameData["mapDim"]["integerValue"]),1],[int(currentGameData["mapDim"]["integerValue"]),int(currentGameData["mapDim"]["integerValue"])],[ceil(int(currentGameData["mapDim"]["integerValue"])/2),ceil(int(currentGameData["mapDim"]["integerValue"])/2)]]
+	positions = [[1,int(currentGameData["mapDim"]["integerValue"])],[int(currentGameData["mapDim"]["integerValue"]),1],[int(currentGameData["mapDim"]["integerValue"]),int(currentGameData["mapDim"]["integerValue"])],[(int(currentGameData["mapDim"]["integerValue"])/2) + 1,(int(currentGameData["mapDim"]["integerValue"])/2) + 1]]
 
 func generate_map(x):
 	var map = {}
